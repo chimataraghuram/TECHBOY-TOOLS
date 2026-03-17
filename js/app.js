@@ -260,25 +260,25 @@ const HomeView = {
                     </a>
                 </div>
 
-                <h2 class="section-title" style="margin-top: 6rem;">Featured Tools</h2>
+                <h2 class="section-title" style="margin-top: 8rem;">Featured Tools</h2>
                 <div class="featured-grid">
                     <div class="card" style="cursor: pointer;" onclick="window.location.hash='#resume-tools'">
-                        <i class="fa-solid fa-file-invoice" style="font-size: 2rem; color: var(--accent-resume); margin-bottom: 1rem;"></i>
+                        <i class="fa-solid fa-file-invoice" style="font-size: 2rem; color: var(--accent-resume); margin-bottom: 1rem; filter: drop-shadow(0 0 8px var(--accent-resume));"></i>
                         <h4>Resume Builder</h4>
                         <p>Professional resume in minutes.</p>
                     </div>
                     <div class="card" style="cursor: pointer;" onclick="window.location.hash='#document-tools'">
-                        <i class="fa-solid fa-object-group" style="font-size: 2rem; color: var(--accent-doc); margin-bottom: 1rem;"></i>
+                        <i class="fa-solid fa-object-group" style="font-size: 2rem; color: var(--accent-doc); margin-bottom: 1rem; filter: drop-shadow(0 0 8px var(--accent-doc));"></i>
                         <h4>Merge PDF</h4>
                         <p>Combine multiple PDF files.</p>
                     </div>
                     <div class="card" style="cursor: pointer;" onclick="window.location.hash='#utilities'">
-                        <i class="fa-solid fa-key" style="font-size: 2rem; color: var(--accent-utils); margin-bottom: 1rem;"></i>
+                        <i class="fa-solid fa-key" style="font-size: 2rem; color: var(--accent-utils); margin-bottom: 1rem; filter: drop-shadow(0 0 8px var(--accent-utils));"></i>
                         <h4>Password Generator</h4>
                         <p>Secure, random passwords.</p>
                     </div>
                     <div class="card" style="cursor: pointer;" onclick="window.location.hash='#image-tools'">
-                        <i class="fa-solid fa-compress" style="font-size: 2rem; color: var(--accent-img); margin-bottom: 1rem;"></i>
+                        <i class="fa-solid fa-compress" style="font-size: 2rem; color: var(--accent-img); margin-bottom: 1rem; filter: drop-shadow(0 0 8px var(--accent-img));"></i>
                         <h4>Image Compressor</h4>
                         <p>Optimize images for web.</p>
                     </div>
@@ -1195,4 +1195,55 @@ window.addEventListener('load', () => {
     mobileMenuBtn.addEventListener('click', () => {
         navLinksContainer.classList.toggle('active');
     });
+
+    // Restore Particle Background System
+    initParticles();
 });
+
+function initParticles() {
+    const container = document.getElementById('bg-particles');
+    if (!container) return;
+    
+    // Clear existing
+    container.innerHTML = '';
+    
+    const particleCount = 20;
+    for (let i = 0; i < particleCount; i++) {
+        createParticle(container);
+    }
+}
+
+function createParticle(container) {
+    const particle = document.createElement('div');
+    particle.className = 'particle';
+    
+    // Larger sizes for liquid glass effect
+    const size = Math.random() * 300 + 150;
+    particle.style.width = `${size}px`;
+    particle.style.height = `${size}px`;
+    
+    // Random initial position
+    particle.style.left = `${Math.random() * 100}%`;
+    particle.style.top = `${Math.random() * 100}%`;
+    
+    container.appendChild(particle);
+    
+    // Animate
+    animateParticle(particle);
+}
+
+function animateParticle(particle) {
+    const duration = Math.random() * 30000 + 20000; // Slower, 20-50s
+    const targetX = (Math.random() - 0.5) * 60; // wider move
+    const targetY = (Math.random() - 0.5) * 60;
+    
+    particle.animate([
+        { transform: 'translate(0, 0)' },
+        { transform: `translate(${targetX}vw, ${targetY}vh)` },
+        { transform: 'translate(0, 0)' }
+    ], {
+        duration: duration,
+        iterations: Infinity,
+        easing: 'ease-in-out'
+    });
+}
