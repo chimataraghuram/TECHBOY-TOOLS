@@ -1,0 +1,443 @@
+/* global.css - CSS Variables and Core Setup */
+:root {
+  /* Brand Colors */
+  --primary-brand: #2563EB;
+  --bg-color: #F8FAFC;
+  --card-bg: #FFFFFF;
+  --navbar-footer-bg: #0F172A;
+  
+  /* Text Colors */
+  --text-main: #1E293B;
+  --text-muted: #64748B;
+  --text-light: #F8FAFC;
+  
+  /* Accents */
+  --accent-doc: #EF4444;
+  --accent-img: #8B5CF6;
+  --accent-utils: #22C55E;
+  --accent-resume: #06B6D4;
+  --accent-games: #F59E0B;
+  
+  /* UI Elements */
+  --card-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  --card-shadow-hover: 0 10px 20px rgba(0,0,0,0.12);
+  --radius-card: 12px;
+  --radius-btn: 8px;
+  --transition: all 0.3s ease;
+  
+  /* Layout */
+  --container-width: 1200px;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  background-color: var(--bg-color);
+  color: var(--text-main);
+  line-height: 1.6;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.container {
+  max-width: var(--container-width);
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+ul {
+  list-style: none;
+}
+
+/* Typography */
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 700;
+  line-height: 1.2;
+  margin-bottom: 0.5em;
+  color: var(--text-main);
+}
+
+p {
+  margin-bottom: 1rem;
+  color: var(--text-muted);
+}
+
+/* =========================================
+   Layout: Navbar
+   ========================================= */
+.navbar {
+  background-color: var(--navbar-footer-bg);
+  color: var(--text-light);
+  padding: 1rem 0;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.nav-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  font-size: 1.5rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--text-light);
+}
+
+.nav-links {
+  display: flex;
+  gap: 1.5rem;
+}
+
+.nav-link {
+  color: #CBD5E1;
+  font-weight: 500;
+  transition: var(--transition);
+  padding: 0.5rem 0.2rem;
+  border-bottom: 2px solid transparent;
+}
+
+.nav-link:hover, .nav-link.active {
+  color: var(--primary-brand);
+}
+
+/* Removed active border as the request simply asks to highlight using primary blue */
+
+.mobile-menu-btn {
+  display: none;
+  background: none;
+  border: none;
+  color: var(--text-light);
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+/* =========================================
+   Layout: Main Content
+   ========================================= */
+#app-content {
+  flex-grow: 1;
+  padding: 2rem 0 4rem;
+}
+
+/* =========================================
+   Layout: Footer
+   ========================================= */
+.footer {
+  background-color: var(--navbar-footer-bg);
+  color: var(--text-light);
+  padding: 3rem 0 1rem;
+  margin-top: auto;
+}
+
+.footer-container {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
+
+.footer-info h3 {
+  color: var(--text-light);
+}
+
+.footer-info p {
+  color: #CBD5E1;
+  max-width: 300px;
+}
+
+.footer-links h4 {
+  color: var(--text-light);
+}
+
+.footer-links ul {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.footer-links a {
+  color: #CBD5E1;
+  transition: var(--transition);
+}
+
+.footer-links a:hover {
+  color: var(--primary-brand);
+}
+
+.footer-bottom {
+  text-align: center;
+  padding-top: 2rem;
+  border-top: 1px solid rgba(255,255,255,0.1);
+  color: #94A3B8;
+  font-size: 0.875rem;
+}
+
+/* =========================================
+   Components: Buttons
+   ========================================= */
+.btn {
+  display: inline-block;
+  padding: 0.75rem 1.5rem;
+  border-radius: var(--radius-btn);
+  font-weight: 600;
+  text-align: center;
+  cursor: pointer;
+  transition: var(--transition);
+  border: none;
+  font-family: inherit;
+  font-size: 1rem;
+}
+
+.btn-primary {
+  background-color: var(--primary-brand);
+  color: #fff;
+}
+
+.btn-primary:hover {
+  background-color: #1D4ED8;
+  transform: translateY(-2px);
+}
+
+.btn-accent {
+  background-color: var(--accent-color, var(--primary-brand));
+  color: #fff;
+}
+
+.btn-accent:hover {
+  filter: brightness(0.9);
+  transform: translateY(-2px);
+}
+
+/* =========================================
+   Components: Cards & Grid
+   ========================================= */
+.grid {
+  display: grid;
+  gap: 1.5rem;
+}
+
+.grid-3 {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.grid-2 {
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.card {
+  background-color: var(--card-bg);
+  border-radius: var(--radius-card);
+  box-shadow: var(--card-shadow);
+  padding: 2rem;
+  transition: var(--transition);
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+  border: 1px solid rgba(0,0,0,0.03);
+}
+
+.card:hover {
+  box-shadow: var(--card-shadow-hover);
+  transform: translateY(-4px);
+}
+
+.card-icon {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+  color: var(--accent-color, var(--primary-brand));
+}
+
+.card-title {
+  font-size: 1.25rem;
+  margin-bottom: 0.5rem;
+}
+
+.card-desc {
+  font-size: 0.95rem;
+  margin-bottom: 1.5rem;
+  flex-grow: 1;
+}
+
+.card-link {
+  color: var(--accent-color, var(--primary-brand));
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.card-link:hover {
+  text-decoration: underline;
+}
+
+/* Tools Form Sections */
+.tool-section {
+  background-color: var(--card-bg);
+  border-radius: var(--radius-card);
+  box-shadow: var(--card-shadow);
+  padding: 2.5rem;
+  margin-bottom: 2rem;
+  max-width: 800px;
+  margin: 0 auto 2rem;
+}
+
+.tool-header {
+  text-align: center;
+  margin-bottom: 2.5rem;
+}
+
+.tool-header h1 {
+  font-size: 2.5rem;
+  color: var(--text-main);
+  margin-bottom: 0.5rem;
+}
+
+.tool-header p {
+  font-size: 1.1rem;
+}
+
+/* Forms & Inputs */
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+.form-label {
+  display: block;
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+  color: var(--text-main);
+}
+
+.form-control {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 1px solid #CBD5E1;
+  border-radius: var(--radius-btn);
+  font-family: inherit;
+  font-size: 1rem;
+  transition: var(--transition);
+}
+
+.form-control:focus {
+  outline: none;
+  border-color: var(--primary-brand);
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+textarea.form-control {
+  resize: vertical;
+  min-height: 120px;
+}
+
+.file-drop-area {
+  border: 2px dashed #CBD5E1;
+  border-radius: var(--radius-card);
+  padding: 3rem 2rem;
+  text-align: center;
+  background-color: #F8FAFC;
+  cursor: pointer;
+  transition: var(--transition);
+  margin-bottom: 1.5rem;
+}
+
+.file-drop-area:hover, .file-drop-area.dragover {
+  border-color: var(--primary-brand);
+  background-color: #EFF6FF;
+}
+
+.file-drop-icon {
+  font-size: 3rem;
+  color: var(--text-muted);
+  margin-bottom: 1rem;
+}
+
+.file-drop-text {
+  font-size: 1.1rem;
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+}
+
+.file-drop-hint {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+}
+
+/* Input file hidden */
+.file-drop-area input[type="file"] {
+  display: none;
+}
+
+/* Hero Section */
+.hero {
+  text-align: center;
+  padding: 4rem 1rem;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.hero h1 {
+  font-size: 3.5rem;
+  letter-spacing: -0.02em;
+  margin-bottom: 1rem;
+}
+
+.hero p {
+  font-size: 1.2rem;
+  margin-bottom: 2rem;
+}
+
+/* Responsive */
+@media (max-width: 992px) {
+  .grid-3 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .grid-2, .grid-3 {
+    grid-template-columns: 1fr;
+  }
+  
+  .nav-links {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background-color: var(--navbar-footer-bg);
+    flex-direction: column;
+    padding: 1rem;
+    gap: 1rem;
+  }
+  
+  .nav-links.active {
+    display: flex;
+  }
+  
+  .mobile-menu-btn {
+    display: block;
+  }
+
+  .hero h1 {
+    font-size: 2.5rem;
+  }
+}
