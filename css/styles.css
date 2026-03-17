@@ -88,31 +88,43 @@ p {
 }
 
 /* =========================================
-   Layout: Navbar (Glass)
+   Layout: Navbar (Liquid Jelly Capsules)
    ========================================= */
 .navbar {
-  background: rgba(15, 23, 42, 0.7);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  padding: 1rem 0;
+  background: transparent;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  padding: 1.5rem 0;
   position: sticky;
   top: 0;
   z-index: 1000;
-  border-bottom: 1px solid var(--glass-border);
+  border-bottom: none;
 }
 
 .nav-container {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: 1rem;
 }
 
 .logo {
-  font-size: 1.5rem;
+  font-size: 1.3rem;
   font-weight: 800;
   display: flex;
   align-items: center;
   gap: 0.5rem;
+  background: var(--glass-bg);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  padding: 0.6rem 1.2rem;
+  border-radius: 50px;
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--glass-glow);
+  transition: var(--transition);
+}
+
+.logo span {
   background: linear-gradient(90deg, #3B82F6, #60A5FA);
   -webkit-background-clip: text;
   background-clip: text;
@@ -121,34 +133,54 @@ p {
 
 .nav-links {
   display: flex;
-  gap: 2rem;
+  gap: 0.75rem;
+  background: rgba(15, 23, 42, 0.4);
+  backdrop-filter: blur(8px);
+  padding: 0.5rem;
+  border-radius: 50px;
+  border: 1px solid var(--glass-border);
 }
 
 .nav-link {
   color: #94A3B8;
   font-weight: 600;
+  padding: 0.5rem 1.2rem;
+  border-radius: 50px;
   transition: var(--transition);
+  position: relative;
+  font-size: 0.9rem;
 }
 
 .nav-link:hover, .nav-link.active {
   color: #FFFFFF;
-  text-shadow: 0 0 10px rgba(59, 130, 246, 0.5);
+  background: var(--glass-bg);
+  box-shadow: 0 0 15px rgba(59, 130, 246, 0.3);
+  transform: translateY(-2px);
+}
+
+.nav-link.active::after {
+  content: '';
+  position: absolute;
+  bottom: 6px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 4px;
+  height: 4px;
+  background: var(--primary-brand);
+  border-radius: 50%;
+  box-shadow: 0 0 8px var(--primary-brand);
 }
 
 .mobile-menu-btn {
   display: none;
-  background: none;
-  border: none;
+  background: var(--glass-bg);
+  backdrop-filter: var(--glass-blur);
+  padding: 0.6rem;
+  border-radius: 50%;
+  border: 1px solid var(--glass-border);
   color: #FFFFFF;
-  font-size: 1.5rem;
+  font-size: 1.2rem;
   cursor: pointer;
-}
-
-/* =========================================
-   Layout: Main Content
-   ========================================= */
-#app-content {
-  flex-grow: 1;
 }
 
 /* =========================================
@@ -170,9 +202,9 @@ p {
 }
 
 .card:hover {
-  transform: translateY(-10px) scale(1.02);
+  transform: translateY(-10px) rotateX(2deg);
   border-color: rgba(255, 255, 255, 0.3);
-  box-shadow: 0 0 20px rgba(59, 130, 246, 0.2);
+  box-shadow: 0 15px 35px rgba(59, 130, 246, 0.2);
 }
 
 .card-icon {
@@ -197,46 +229,52 @@ p {
 }
 
 /* =========================================
-   Components: Jelly Buttons
+   Components: Liquid Jelly Buttons
    ========================================= */
 .btn {
-  display: inline-block;
-  padding: 0.8rem 1.8rem;
-  border-radius: var(--radius-btn);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.8rem 2rem;
+  border-radius: 50px; /* Capsule style */
   font-weight: 700;
   text-align: center;
   cursor: pointer;
-  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-  border: none;
+  transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  border: 1px solid rgba(255,255,255,0.1);
   font-family: inherit;
   font-size: 1rem;
   position: relative;
   overflow: hidden;
+  backdrop-filter: blur(4px);
 }
 
 .btn-primary {
-  background: linear-gradient(135deg, #3B82F6 0%, #2563EB 100%);
+  background: linear-gradient(135deg, rgba(59, 130, 246, 0.8) 0%, rgba(37, 99, 235, 0.8) 100%);
   color: white;
-  box-shadow: 0 4px 15px rgba(37, 99, 235, 0.3);
+  box-shadow: 0 8px 20px rgba(37, 99, 235, 0.3);
 }
 
 .btn:hover {
-  transform: scale(1.08); /* Jelly stretch */
-  box-shadow: 0 0 25px rgba(255, 255, 255, 0.2);
+  transform: scale(1.05) translateY(-3px);
+  box-shadow: 0 12px 25px rgba(59, 130, 246, 0.4), 0 0 20px rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.3);
 }
 
 .btn:active {
-  transform: scale(0.95);
+  transform: scale(0.92);
 }
 
 .btn-accent {
   background: var(--accent-color, var(--primary-brand));
+  opacity: 0.9;
   color: white;
   box-shadow: 0 4px 15px rgba(0,0,0,0.2);
 }
 
 .btn-sm {
-  padding: 0.5rem 1rem;
+  padding: 0.5rem 1.2rem;
   font-size: 0.875rem;
 }
 
