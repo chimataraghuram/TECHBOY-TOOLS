@@ -128,8 +128,14 @@ const resumeBuilderHTML = `
                     <textarea id="res-education" class="form-control" placeholder="University Name | Degree | Dates..."></textarea>
                 </div>
                 <div class="form-group" style="grid-column: 1 / -1;">
-                    <label class="form-label">Skills</label>
-                    <input type="text" id="res-skills" class="form-control" placeholder="HTML, CSS, JavaScript, Python...">
+                    <label class="form-label">Skills (Separate with commas)</label>
+                    <div style="display: flex; gap: 0.5rem; margin-bottom: 0.5rem;">
+                        <input type="text" id="res-skills" class="form-control" placeholder="HTML, CSS, JavaScript, Python...">
+                        <button class="btn btn-primary" id="btn-suggest-keywords" style="white-space: nowrap; padding: 0 1rem; height: 48px;">Get Suggestions</button>
+                    </div>
+                    <div id="keyword-suggestions" style="display: none; padding: 0.5rem; background: rgba(59, 130, 246, 0.1); border-radius: 8px; border: 1px dashed var(--primary-brand); font-size: 0.85rem; color: var(--primary-brand);">
+                        <strong>Suggested Keywords:</strong> <span id="suggested-list"></span>
+                    </div>
                 </div>
                 <div class="form-group" style="grid-column: 1 / -1;">
                     <label class="form-label">Projects</label>
@@ -142,6 +148,18 @@ const resumeBuilderHTML = `
                 <div class="form-group" style="grid-column: 1 / -1;">
                     <label class="form-label">Certifications</label>
                     <textarea id="res-certifications" class="form-control" placeholder="Certification Name | Issuing Organization | Date..."></textarea>
+                </div>
+            </div>
+            
+            <div style="text-align: center; margin-top: 2rem; padding: 1.5rem; background: rgba(255, 255, 255, 0.5); border-radius: 12px; border: 1px solid rgba(255, 255, 255, 0.2);">
+                <label class="form-label" style="display: block; margin-bottom: 1rem;">Choose Template Style</label>
+                <div style="display: flex; justify-content: center; gap: 2rem;">
+                    <label style="cursor: pointer; display: flex; align-items: center; gap: 0.5rem;">
+                        <input type="radio" name="res-template" value="classic" checked> Classic Professional
+                    </label>
+                    <label style="cursor: pointer; display: flex; align-items: center; gap: 0.5rem;">
+                        <input type="radio" name="res-template" value="creative"> Creative Modern
+                    </label>
                 </div>
             </div>
             <div style="text-align: center; margin-top: 2rem;">
@@ -360,6 +378,9 @@ const HomeView = {
             { name: 'Password Generator', category: '#utilities', keywords: 'utility secure key' },
             { name: 'Resume Builder', category: '#resume-tools', keywords: 'resume cv job builder' },
             { name: 'ATS Analyzer', category: '#resume-tools', keywords: 'resume cv job score' },
+            { name: 'Unit Converter', category: '#utilities', keywords: 'utility conversion px rem px to rem measurement' },
+            { name: 'Color Palette Generator', category: '#utilities', keywords: 'utility color design ui palette' },
+            { name: 'Markdown Editor', category: '#utilities', keywords: 'utility editor markdown preview write' },
             { name: 'Snake Game', category: '#games', keywords: 'game fun snake' }
         ];
 
@@ -394,6 +415,32 @@ const HomeView = {
                 searchDropdown.style.display = 'none';
             }
         });
+
+        // Interactive Tour Logic
+        if (!sessionStorage.getItem('tour_done')) {
+            const container = searchBar.parentElement;
+            container.classList.add('pulse-onboarding');
+            
+            const tourPopup = document.createElement('div');
+            tourPopup.style.cssText = `
+                position: absolute; top: 110%; left: 0; background: var(--primary-brand);
+                color: white; padding: 1rem; border-radius: 12px; font-size: 0.9rem;
+                z-index: 1000; box-shadow: 0 10px 25px rgba(0,0,0,0.2); width: 250px;
+                animation: slide-up 0.5s ease-out;
+            `;
+            tourPopup.innerHTML = `
+                <strong>✨ Quick Start!</strong><br>
+                Try searching for "PDF" or "Resume" to find tools instantly.
+                <button class="btn btn-sm" style="margin-top: 0.5rem; background: white; color: var(--primary-brand); width: 100%;" id="btn-close-tour">Got it!</button>
+            `;
+            container.appendChild(tourPopup);
+
+            document.getElementById('btn-close-tour').onclick = () => {
+                container.classList.remove('pulse-onboarding');
+                tourPopup.remove();
+                sessionStorage.setItem('tour_done', 'true');
+            };
+        }
     }
 };
 
@@ -822,6 +869,24 @@ const UtilitiesView = {
                             <p class="card-desc">Condense long text into a shorter summary.</p>
                             <span class="btn btn-accent">Open Tool</span>
                         </div>
+                        <div class="card" style="--accent-color: var(--accent-utils); cursor: pointer;" onclick="window.showUtil('Unit Converter')">
+                            <i class="fa-solid fa-arrow-right-arrow-left card-icon"></i>
+                            <h2 class="card-title">Unit Converter</h2>
+                            <p class="card-desc">Convert PX to REM and common data units (MB, GB).</p>
+                            <span class="btn btn-accent">Open Tool</span>
+                        </div>
+                        <div class="card" style="--accent-color: var(--accent-utils); cursor: pointer;" onclick="window.showUtil('Color Palette Generator')">
+                            <i class="fa-solid fa-palette card-icon"></i>
+                            <h2 class="card-title">Color Palette Generator</h2>
+                            <p class="card-desc">Generate beautiful, random color schemes.</p>
+                            <span class="btn btn-accent">Open Tool</span>
+                        </div>
+                        <div class="card" style="--accent-color: var(--accent-utils); cursor: pointer;" onclick="window.showUtil('Markdown Editor')">
+                            <i class="fa-solid fa-pen-to-square card-icon"></i>
+                            <h2 class="card-title">Markdown Editor</h2>
+                            <p class="card-desc">Write Markdown and preview HTML in real-time.</p>
+                            <span class="btn btn-accent">Open Tool</span>
+                        </div>
                     </div>
                 </div>
 
@@ -968,7 +1033,50 @@ const UtilitiesView = {
                         outputEl.innerHTML = `<strong>*Summarized Text*:</strong><br><br>${summary}`;
                     }
                 });
-            }
+            } else if (title === 'Unit Converter') {
+                    actionContainer.innerHTML = `
+                        <button class="btn btn-accent" id="btn-px-rem">PX to REM</button>
+                        <button class="btn btn-accent" id="btn-mb-gb">MB to GB</button>
+                    `;
+                    inputEl.placeholder = "Enter value (e.g. 16)";
+                    document.getElementById('btn-px-rem').addEventListener('click', () => {
+                        const val = parseFloat(inputEl.value) || 0;
+                        outputEl.innerHTML = `<strong style="font-size: 1.5rem;">${val / 16}rem</strong><br><small>(Base 16px)</small>`;
+                    });
+                    document.getElementById('btn-mb-gb').addEventListener('click', () => {
+                        const val = parseFloat(inputEl.value) || 0;
+                        outputEl.innerHTML = `<strong style="font-size: 1.5rem;">${(val / 1024).toFixed(4)} GB</strong>`;
+                    });
+                } else if (title === 'Color Palette Generator') {
+                    inputGroup.style.display = 'none';
+                    actionContainer.innerHTML = '<button class="btn btn-accent" id="btn-action">Generate Palette</button>';
+                    const generate = () => {
+                        const randomColor = () => '#' + Math.floor(Math.random()*16777215).toString(16).padStart(6, '0');
+                        const colors = [randomColor(), randomColor(), randomColor(), randomColor()];
+                        outputEl.innerHTML = `
+                            <div style="display: flex; height: 100px; border-radius: 8px; overflow: hidden; margin-bottom: 1rem;">
+                                ${colors.map(c => `<div style="flex: 1; background: ${c}; display: flex; align-items: flex-end; justify-content: center; padding-bottom: 5px; color: white; font-size: 10px; font-family: monospace; text-shadow: 0 1px 2px black;">${c}</div>`).join('')}
+                            </div>
+                            <div style="text-align: center;">Click to copy: ${colors.join(', ')}</div>
+                        `;
+                    };
+                    document.getElementById('btn-action').addEventListener('click', generate);
+                    generate();
+                } else if (title === 'Markdown Editor') {
+                    inputEl.placeholder = "# Hello World\n\nStart writing markdown...";
+                    actionContainer.innerHTML = '<span style="color: var(--text-muted); font-size: 0.9rem;">Preview updates as you type</span>';
+                    inputEl.addEventListener('input', () => {
+                        // Simple MD parser logic (limited for demo)
+                        let html = inputEl.value
+                            .replace(/^# (.*$)/gim, '<h1>$1</h1>')
+                            .replace(/^## (.*$)/gim, '<h2>$1</h2>')
+                            .replace(/^### (.*$)/gim, '<h3>$1</h3>')
+                            .replace(/\*\*(.*)\*\*/gim, '<b>$1</b>')
+                            .replace(/\*(.*)\*/gim, '<i>$1</i>')
+                            .replace(/\n$/gim, '<br>');
+                        outputEl.innerHTML = html || '<i>Preview area</i>';
+                    });
+                }
         };
     }
 };
@@ -1016,6 +1124,25 @@ const ResumeToolsView = {
             
             if (type === 'builder') {
                 tv.innerHTML = resumeBuilderHTML;
+                // Keyword Suggestions
+                const btnSuggest = document.getElementById('btn-suggest-keywords');
+                const suggestedBox = document.getElementById('keyword-suggestions');
+                const suggestedList = document.getElementById('suggested-list');
+                const skillsInput = document.getElementById('res-skills');
+
+                btnSuggest.onclick = () => {
+                    const roles = ["React, Node.js, TypeScript, AWS, Docker, CI/CD", "Python, SQL, Tableau, Machine Learning, Statistics", "UI/UX, Figma, Adobe XD, User Research, Prototyping", "Spring Boot, Microservices, Kubernetes, Java, MongoDB"];
+                    const randomRole = roles[Math.floor(Math.random() * roles.length)];
+                    suggestedList.innerText = randomRole;
+                    suggestedBox.style.display = 'block';
+                    
+                    suggestedList.style.cursor = 'pointer';
+                    suggestedList.onclick = () => {
+                        skillsInput.value += (skillsInput.value ? ', ' : '') + randomRole;
+                        suggestedBox.style.display = 'none';
+                    };
+                };
+
                 document.getElementById('btn-preview-resume').onclick = () => {
                     const name = document.getElementById('res-name').value || "Your Name";
                     const email = document.getElementById('res-email').value || "email@example.com";
@@ -1023,18 +1150,78 @@ const ResumeToolsView = {
                     const linkedin = document.getElementById('res-linkedin').value;
                     const github = document.getElementById('res-github').value;
                     
-                    document.getElementById('pv-name').innerText = name;
-                    document.getElementById('pv-contact').innerText = `${email} | ${phone}`;
-                    document.getElementById('pv-socials').innerHTML = `${linkedin ? `LinkedIn: ${linkedin}<br>` : ''}${github ? `GitHub: ${github}` : ''}`;
+                    const template = document.querySelector('input[name="res-template"]:checked').value;
+                    const previewArea = document.getElementById('resume-preview-area');
                     
-                    document.getElementById('pv-education').innerText = document.getElementById('res-education').value;
-                    document.getElementById('pv-skills').innerText = document.getElementById('res-skills').value;
-                    document.getElementById('pv-projects').innerText = document.getElementById('res-projects').value;
-                    document.getElementById('pv-experience').innerText = document.getElementById('res-experience').value;
-                    document.getElementById('pv-certifications').innerText = document.getElementById('res-certifications').value;
+                    if (template === 'creative') {
+                        previewArea.className = 'creative-template';
+                        previewArea.innerHTML = `
+                            <div class="creative-sidebar">
+                                <h1 style="color: white; font-size: 2rem; margin: 0;">${name}</h1>
+                                <p style="font-size: 0.9rem; opacity: 0.8;">${email}<br>${phone}</p>
+                                <div>
+                                    <h3>Socials</h3>
+                                    <p style="font-size: 0.85rem;">${linkedin ? `IN: ${linkedin}<br>` : ''}${github ? `GH: ${github}` : ''}</p>
+                                </div>
+                                <div>
+                                    <h3>Skills</h3>
+                                    <p style="font-size: 0.85rem;">${document.getElementById('res-skills').value}</p>
+                                </div>
+                            </div>
+                            <div class="creative-main">
+                                <section>
+                                    <h3>Education</h3>
+                                    <p style="white-space: pre-wrap;">${document.getElementById('res-education').value}</p>
+                                </section>
+                                <section style="margin-top: 1.5rem;">
+                                    <h3>Experience</h3>
+                                    <p style="white-space: pre-wrap;">${document.getElementById('res-experience').value}</p>
+                                </section>
+                                <section style="margin-top: 1.5rem;">
+                                    <h3>Projects</h3>
+                                    <p style="white-space: pre-wrap;">${document.getElementById('res-projects').value}</p>
+                                </section>
+                                <div style="margin-top: 2rem; display: flex; gap: 1rem;" class="no-print">
+                                    <button class="btn btn-accent btn-sm" onclick="document.getElementById('resume-preview-area').style.display='none'; document.getElementById('resume-form-area').style.display='block';">Edit</button>
+                                    <button class="btn btn-primary btn-sm" id="pv-btn-download-creative">Download PDF</button>
+                                </div>
+                            </div>
+                        `;
+                        // Re-bind download for creative
+                        document.getElementById('pv-btn-download-creative').onclick = () => document.getElementById('pv-btn-download').click();
+                    } else {
+                        previewArea.className = '';
+                        previewArea.style.background = 'white';
+                        previewArea.innerHTML = `
+                            <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #0f172a; padding-bottom: 1rem; margin-bottom: 1.5rem;">
+                                <div>
+                                    <h1 id="pv-name" style="margin: 0; font-size: 2.5rem;">${name}</h1>
+                                    <p id="pv-contact" style="margin: 0.5rem 0 0; color: #475569;">${email} | ${phone}</p>
+                                </div>
+                                <div id="pv-socials" style="text-align: right; color: #475569;">${linkedin ? `LinkedIn: ${linkedin}<br>` : ''}${github ? `GitHub: ${github}` : ''}</div>
+                            </div>
+                            <div style="margin-bottom: 1.5rem;">
+                                <h3 style="border-bottom: 1px solid #e2e8f0; padding-bottom: 0.25rem;">Education</h3>
+                                <p style="white-space: pre-wrap;">${document.getElementById('res-education').value}</p>
+                            </div>
+                            <div style="margin-bottom: 1.5rem;">
+                                <h3 style="border-bottom: 1px solid #e2e8f0; padding-bottom: 0.25rem;">Skills</h3>
+                                <p>${document.getElementById('res-skills').value}</p>
+                            </div>
+                            <div style="margin-bottom: 1.5rem;">
+                                <h3 style="border-bottom: 1px solid #e2e8f0; padding-bottom: 0.25rem;">Experience</h3>
+                                <p style="white-space: pre-wrap;">${document.getElementById('res-experience').value}</p>
+                            </div>
+                            <div style="text-align: center; margin-top: 2rem; display: flex; justify-content: center; gap: 1rem;" class="no-print">
+                                <button class="btn btn-accent" onclick="document.getElementById('resume-preview-area').style.display='none'; document.getElementById('resume-form-area').style.display='block';">Edit Form</button>
+                                <button class="btn btn-primary" id="pv-btn-download-classic">Download PDF</button>
+                            </div>
+                        `;
+                         document.getElementById('pv-btn-download-classic').onclick = () => document.getElementById('pv-btn-download').click();
+                    }
                     
                     document.getElementById('resume-form-area').style.display = 'none';
-                    document.getElementById('resume-preview-area').style.display = 'block';
+                    document.getElementById('resume-preview-area').style.display = 'grid';
                 };
 
                 document.getElementById('pv-btn-download').onclick = async () => {

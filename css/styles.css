@@ -26,10 +26,58 @@
   --accent-games: #F59E0B;
   
   /* UI Elements */
-  --radius-card: 16px;
-  --radius-btn: 12px;
+  --radius-card: 20px;
+  --radius-btn: 10px;
   --transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-  --jelly-transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  --jelly-transition: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+/* Onboarding Pulse */
+.pulse-onboarding {
+  animation: search-pulse 2s infinite;
+  border: 2px solid var(--primary-brand) !important;
+}
+
+@keyframes search-pulse {
+  0% { box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.7); }
+  70% { box-shadow: 0 0 0 15px rgba(59, 130, 246, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(59, 130, 246, 0); }
+}
+
+/* Creative Resume Template */
+.creative-template {
+  display: grid !important;
+  grid-template-columns: 250px 1fr;
+  gap: 2rem;
+  background: #fdfdfd !important;
+  color: #1e293b !important;
+  padding: 0 !important;
+  overflow: hidden;
+}
+
+.creative-sidebar {
+  background: #1e293b;
+  color: white;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.creative-main {
+  padding: 2rem;
+}
+
+.creative-sidebar h3 {
+  color: #3b82f6;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+  margin-bottom: 0.5rem;
+}
+
+.creative-main h3 {
+  color: #1e293b;
+  border-bottom: 2px solid #3b82f6;
+  margin-bottom: 1rem;
 }
 
 /* =========================================
