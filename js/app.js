@@ -150,10 +150,15 @@ const aiImproverHTML = `
 const HomeView = {
     render() {
         return `
-            <div class="hero">
-                <h1>TECHBOY Tools</h1>
-                <p>Free online tools for students and developers. Convert files, compress images, build resumes, and use helpful utilities.</p>
-                <a href="#document-tools" class="btn btn-primary">Explore Tools</a>
+            <div class="hero-wrapper">
+                <div class="hero">
+                    <div class="hero-illustration">
+                        <i class="fa-solid fa-cubes"></i>
+                    </div>
+                    <h1>TECHBOY Tools</h1>
+                    <p>Free online tools for students and developers. Convert files, compress images, build resumes, and use helpful utilities.</p>
+                    <a href="#document-tools" class="btn btn-primary">Explore Tools</a>
+                </div>
             </div>
 
             <div class="container">
