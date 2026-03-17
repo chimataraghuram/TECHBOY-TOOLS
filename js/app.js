@@ -178,13 +178,13 @@ const HomeView = {
                     <a href="#utilities" class="card" style="--accent-color: var(--accent-utils);">
                         <i class="fa-solid fa-wrench card-icon"></i>
                         <h2 class="card-title">Utilities</h2>
-                        <p class="card-desc">Useful everyday tools for students and developers.</p>
+                        <p class="card-desc">Useful tools for students and developers.</p>
                         <span class="card-link">Try Utilities <i class="fa-solid fa-arrow-right"></i></span>
                     </a>
                     <a href="#resume-tools" class="card" style="--accent-color: var(--accent-resume);">
                         <i class="fa-solid fa-file-invoice card-icon"></i>
                         <h2 class="card-title">Resume Tools</h2>
-                        <p class="card-desc">Build, analyze and improve your resume.</p>
+                        <p class="card-desc">Build and analyze your resume.</p>
                         <span class="card-link">Try Resume Tools <i class="fa-solid fa-arrow-right"></i></span>
                     </a>
                     <a href="#games" class="card" style="--accent-color: var(--accent-games);">
