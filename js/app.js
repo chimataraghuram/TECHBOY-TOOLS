@@ -522,11 +522,13 @@ const UtilitiesView = {
             document.getElementById('util-header').innerHTML = `<h2>${title}</h2>`;
             
             const actionContainer = document.getElementById('util-actions');
+            const inputGroup = document.getElementById('util-input-group');
             const inputEl = document.getElementById('util-input');
             const outputEl = document.getElementById('util-output');
             
+            inputGroup.style.display = 'block';
             inputEl.value = '';
-            outputEl.textContent = '';
+            outputEl.innerHTML = '';
             actionContainer.innerHTML = '';
             
             if (title === 'Word Counter') {
@@ -535,30 +537,93 @@ const UtilitiesView = {
                     const text = inputEl.value;
                     const words = text.trim() ? text.trim().split(/\s+/).length : 0;
                     const chars = text.length;
-                    outputEl.textContent = `Words: ${words}\nCharacters: ${chars}`;
+                    const time = Math.ceil(words / 200); // 200 WPM
+                    outputEl.innerHTML = `<strong>Words:</strong> ${words}<br><strong>Characters:</strong> ${chars}<br><strong>Est. Reading Time:</strong> ~${time} min`;
                 });
             } else if (title === 'Text Case Converter') {
                 actionContainer.innerHTML = `
                     <button class="btn btn-accent" id="btn-upper">UPPERCASE</button>
                     <button class="btn btn-accent" id="btn-lower">lowercase</button>
+                    <button class="btn btn-accent" id="btn-title">Title Case</button>
                 `;
                 document.getElementById('btn-upper').addEventListener('click', () => outputEl.textContent = inputEl.value.toUpperCase());
                 document.getElementById('btn-lower').addEventListener('click', () => outputEl.textContent = inputEl.value.toLowerCase());
+                document.getElementById('btn-title').addEventListener('click', () => {
+                    outputEl.textContent = inputEl.value.replace(
+                        /\w\S*/g,
+                        function(txt) {
+                            return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+                        }
+                    );
+                });
             } else if (title === 'Password Generator') {
-                inputEl.parentElement.style.display = 'none';
-                actionContainer.innerHTML = '<button class="btn btn-accent" id="btn-action">Generate</button>';
+                inputGroup.style.display = 'none';
+                actionContainer.innerHTML = '<button class="btn btn-accent" id="btn-action">Generate Password</button>';
                 document.getElementById('btn-action').addEventListener('click', () => {
                     const chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()_+";
                     let password = "";
                     for (let i = 0; i < 16; i++) {
                         password += chars.charAt(Math.floor(Math.random() * chars.length));
                     }
-                    outputEl.textContent = password;
+                    outputEl.innerHTML = `<span style="font-family: monospace; font-size: 1.25rem;">${password}</span>`;
                 });
-            } else {
-                actionContainer.innerHTML = '<button class="btn btn-accent" id="btn-action">Process</button>';
+            } else if (title === 'Password Strength Checker') {
+                actionContainer.innerHTML = '<button class="btn btn-accent" id="btn-action">Check Strength</button>';
                 document.getElementById('btn-action').addEventListener('click', () => {
-                    outputEl.textContent = "This is a frontend demo. Real processing happens here.";
+                    const pw = inputEl.value;
+                    let strength = 0;
+                    if (pw.length > 7) strength += 1;
+                    if (pw.match(/[a-z]+/)) strength += 1;
+                    if (pw.match(/[A-Z]+/)) strength += 1;
+                    if (pw.match(/[0-9]+/)) strength += 1;
+                    if (pw.match(/[$@#&!]+/)) strength += 1;
+                    
+                    let result = "";
+                    let color = "";
+                    if (pw.length === 0) { result = "Please enter a password."; color = "black"; }
+                    else if (strength < 3) { result = "Weak"; color = "#EF4444"; }
+                    else if (strength === 3 || strength === 4) { result = "Medium"; color = "#F59E0B"; }
+                    else { result = "Strong"; color = "#10B981"; }
+                    
+                    outputEl.innerHTML = `<strong style="color: ${color}; font-size: 1.25rem;">${result}</strong><br><small>Criteria met: ${strength}/5</small>`;
+                });
+            } else if (title === 'JSON Formatter') {
+                actionContainer.innerHTML = '<button class="btn btn-accent" id="btn-action">Format JSON</button>';
+                document.getElementById('btn-action').addEventListener('click', () => {
+                    try {
+                        const parsed = JSON.parse(inputEl.value);
+                        outputEl.innerHTML = `<pre style="margin: 0;">${JSON.stringify(parsed, null, 4)}</pre>`;
+                    } catch (e) {
+                        outputEl.innerHTML = `<span style="color: #EF4444;">Invalid JSON: ${e.message}</span>`;
+                    }
+                });
+            } else if (title === 'QR Code Generator') {
+                actionContainer.innerHTML = '<button class="btn btn-accent" id="btn-action">Generate QR Code</button>';
+                document.getElementById('btn-action').addEventListener('click', () => {
+                    const text = inputEl.value.trim();
+                    if (!text) {
+                        outputEl.innerHTML = '<span style="color: #EF4444;">Please enter some text or a URL.</span>';
+                        return;
+                    }
+                    // Simple hack using Google Charts API for lightweight native QR generation
+                    const qrUrl = `https://chart.googleapis.com/chart?chs=200x200&cht=qr&chl=${encodeURIComponent(text)}&choe=UTF-8`;
+                    outputEl.innerHTML = `<img src="${qrUrl}" alt="QR Code" style="display: block; margin: 0 auto; border-radius: 8px; box-shadow: var(--card-shadow);" />`;
+                });
+            } else if (title === 'Text Summarizer') {
+                actionContainer.innerHTML = '<button class="btn btn-accent" id="btn-action">Summarize</button>';
+                document.getElementById('btn-action').addEventListener('click', () => {
+                    const text = inputEl.value.trim();
+                    if(text.length < 50) {
+                        outputEl.innerHTML = `<span style="color: #EF4444;">Text is too short to summarize. Please enter at least a paragraph.</span>`;
+                        return;
+                    }
+                    // Extractive summarization simulation (just pulls the first and last sentence for demo logic).
+                    const sentences = text.match(/[^.!?]+[.!?]+/g) || [];
+                    if(sentences.length <= 2) {
+                        outputEl.textContent = text;
+                    } else {
+                        outputEl.innerHTML = `<strong>*Summarized (Client-Side Demo)*:</strong><br><br>${sentences[0]} ${sentences[sentences.length - 1]}`;
+                    }
                 });
             }
         };
