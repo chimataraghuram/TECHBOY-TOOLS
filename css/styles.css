@@ -133,17 +133,17 @@ ul {
 }
 
 .logo {
-  font-size: 1.1rem;
+  font-size: 1.2rem;
   font-weight: 800;
   display: flex;
   align-items: center;
-  gap: 0.6rem;
+  gap: 0.8rem;
   color: white;
   transition: var(--jelly-transition);
   background: rgba(15, 23, 42, 0.6);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-  padding: 0.5rem 1.2rem;
+  padding: 0.4rem 1.5rem;
   border-radius: 50px;
   border: 1px solid rgba(255, 255, 255, 0.1);
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
@@ -153,13 +153,13 @@ ul {
 
 /* Branding: Mascot Logo */
 .logo img.nav-logo-img {
-  height: 42px !important;
-  width: 42px !important;
-  min-width: 42px;
-  min-height: 42px;
+  height: 55px !important;
+  width: 55px !important;
+  min-width: 55px;
+  min-height: 55px;
   border-radius: 50% !important;
   object-fit: cover !important;
-  border: 1.5px solid rgba(255, 255, 255, 0.3) !important;
+  border: 2px solid rgba(255, 255, 255, 0.4) !important;
   background: rgba(0, 0, 0, 0.4);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
   margin-right: 4px;
