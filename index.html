@@ -20,6 +20,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/docx/8.2.2/index.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
 </head>
 <body>
     <div id="bg-particles"></div>
@@ -44,6 +46,16 @@
                 <li><a href="#utilities" class="nav-link" data-target="utilities">Utilities</a></li>
                 <li><a href="#resume-tools" class="nav-link" data-target="resume-tools">Resume Tools</a></li>
                 <li><a href="#games" class="nav-link" data-target="games">Games</a></li>
+                <li class="nav-item-theme">
+                    <button id="theme-toggle" class="btn btn-icon" title="Switch Theme">
+                        <i class="fa-solid fa-circle-half-stroke"></i>
+                    </button>
+                    <div id="theme-menu" class="theme-dropdown">
+                        <button onclick="window.utils.setTheme('glass')">Liquid Glass</button>
+                        <button onclick="window.utils.setTheme('space')">Deep Space</button>
+                        <button onclick="window.utils.setTheme('cyber')">Cyberpunk</button>
+                    </div>
+                </li>
             </ul>
         </div>
     </nav>

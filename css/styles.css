@@ -32,6 +32,24 @@
   --jelly-transition: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
 }
 
+/* Deep Space Theme */
+[data-theme="space"] {
+  --bg-gradient: linear-gradient(135deg, #020617, #0f172a, #1e1b4b);
+  --glass-bg: rgba(30, 41, 59, 0.4);
+  --glass-border: rgba(139, 92, 246, 0.3);
+  --primary-brand: #A855F7;
+}
+
+/* Cyberpunk Theme */
+[data-theme="cyber"] {
+  --bg-gradient: linear-gradient(135deg, #0d0208, #001a1a, #0d0208);
+  --glass-bg: rgba(0, 255, 255, 0.05);
+  --glass-border: rgba(244, 114, 182, 0.5);
+  --primary-brand: #F472B6;
+  --text-main: #00ffff;
+  --glass-blur: blur(10px);
+}
+
 /* Onboarding Pulse */
 .pulse-onboarding {
   animation: search-pulse 2s infinite;
