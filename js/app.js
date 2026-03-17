@@ -32,15 +32,24 @@ function createImageInterface(title, desc) {
                 <p>${desc}</p>
             </div>
             
-            <div class="file-drop-area" onclick="document.getElementById('file-upload').click()">
+            <div class="file-drop-area" id="img-drop-area" onclick="document.getElementById('img-upload').click()">
                 <i class="fa-solid fa-cloud-arrow-up file-drop-icon"></i>
-                <div class="file-drop-text">Choose image or drag & drop it here</div>
+                <div class="file-drop-text" id="img-drop-text">Choose image or drag & drop it here</div>
                 <div class="file-drop-hint">JPG, PNG, WEBP (Max 20MB)</div>
-                <input type="file" id="file-upload" accept="image/*">
+                <input type="file" id="img-upload" accept="image/*">
             </div>
 
-            <div style="text-align: center;">
-                <button class="btn btn-accent" onclick="alert('Processing image... This is a client-side demo!')">${title}</button>
+            <div style="text-align: center; display: none;" id="img-preview-container">
+                <img id="img-preview" style="max-width: 100%; max-height: 300px; border-radius: 8px; margin-bottom: 1rem; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);" />
+            </div>
+
+            <div style="text-align: center; margin-bottom: 1rem;">
+                <button class="btn btn-accent" id="img-process-btn" disabled>${title}</button>
+            </div>
+            
+            <div id="img-result-area" style="text-align: center; display: none;">
+                <p style="color: #10B981; font-weight: 600; margin-bottom: 1rem;">Success! Image processed.</p>
+                <a id="img-download-link" class="btn btn-primary" download="processed_image">Download Image</a>
             </div>
         </div>
     `;
@@ -303,6 +312,124 @@ const ImageToolsView = {
             const toolView = document.getElementById('tool-view');
             toolView.style.display = 'block';
             toolView.innerHTML = createImageInterface(title, desc);
+            
+            // Setup actual processing logic
+            const fileInput = document.getElementById('img-upload');
+            const dropArea = document.getElementById('img-drop-area');
+            const processBtn = document.getElementById('img-process-btn');
+            const previewContainer = document.getElementById('img-preview-container');
+            const previewImg = document.getElementById('img-preview');
+            const resultArea = document.getElementById('img-result-area');
+            const downloadLink = document.getElementById('img-download-link');
+            const dropText = document.getElementById('img-drop-text');
+            
+            let currentFile = null;
+            let currentImageURL = null;
+
+            // Drag and drop styles
+            dropArea.addEventListener('dragover', (e) => {
+                e.preventDefault();
+                dropArea.style.borderColor = 'var(--primary-brand)';
+                dropArea.style.backgroundColor = '#EFF6FF';
+            });
+            dropArea.addEventListener('dragleave', (e) => {
+                e.preventDefault();
+                dropArea.style.borderColor = '#CBD5E1';
+                dropArea.style.backgroundColor = '#F8FAFC';
+            });
+            dropArea.addEventListener('drop', (e) => {
+                e.preventDefault();
+                dropArea.style.borderColor = '#CBD5E1';
+                dropArea.style.backgroundColor = '#F8FAFC';
+                if(e.dataTransfer.files.length > 0) {
+                    fileInput.files = e.dataTransfer.files;
+                    handleFileSelect();
+                }
+            });
+
+            fileInput.addEventListener('change', handleFileSelect);
+
+            function handleFileSelect() {
+                if(fileInput.files.length > 0) {
+                    currentFile = fileInput.files[0];
+                    if(!currentFile.type.startsWith('image/')) {
+                        alert('Please select an image file.');
+                        return;
+                    }
+                    
+                    dropText.textContent = currentFile.name;
+                    currentImageURL = URL.createObjectURL(currentFile);
+                    previewImg.src = currentImageURL;
+                    previewContainer.style.display = 'block';
+                    processBtn.disabled = false;
+                    resultArea.style.display = 'none';
+                }
+            }
+
+            processBtn.addEventListener('click', () => {
+                if(!currentFile) return;
+                
+                processBtn.textContent = 'Processing...';
+                processBtn.disabled = true;
+                
+                const img = new Image();
+                img.onload = () => {
+                    const canvas = document.createElement('canvas');
+                    let ctx = canvas.getContext('2d');
+                    
+                    let width = img.width;
+                    let height = img.height;
+                    let targetFormat = currentFile.type;
+                    let quality = 0.92; // Default quality
+                    let outputExt = currentFile.name.split('.').pop();
+                    
+                    // Tool specific logic
+                    if(title === 'Resize Image') {
+                        width = width * 0.5; // Demo: reduce by 50%
+                        height = height * 0.5;
+                        processBtn.textContent = 'Processed (Resized to 50%)';
+                    } else if (title === 'Image Compressor') {
+                        quality = 0.6; // Heavy compression
+                        processBtn.textContent = 'Processed (Compressed)';
+                    } else if (title === 'JPG to PNG') {
+                        targetFormat = 'image/png';
+                        outputExt = 'png';
+                        processBtn.textContent = 'Processed (Converted to PNG)';
+                    } else if (title === 'PNG to JPG') {
+                        targetFormat = 'image/jpeg';
+                        outputExt = 'jpg';
+                        processBtn.textContent = 'Processed (Converted to JPG)';
+                        
+                        // Fill white background for transparent PNGs turning into JPGs
+                        canvas.width = width;
+                        canvas.height = height;
+                        ctx.fillStyle = "#FFFFFF";
+                        ctx.fillRect(0, 0, width, height);
+                    }
+                    
+                    canvas.width = width;
+                    canvas.height = height;
+                    
+                    // Re-fill background if JPG
+                    if(targetFormat === 'image/jpeg') {
+                        ctx.fillStyle = "#FFFFFF";
+                        ctx.fillRect(0, 0, width, height);
+                    }
+                    
+                    ctx.drawImage(img, 0, 0, width, height);
+                    
+                    canvas.toBlob((blob) => {
+                        const newUrl = URL.createObjectURL(blob);
+                        downloadLink.href = newUrl;
+                        downloadLink.download = `techboy_${title.replace(/\s+/g, '_').toLowerCase()}.${outputExt}`;
+                        
+                        previewImg.src = newUrl; // Show the processed result
+                        resultArea.style.display = 'block';
+                        
+                    }, targetFormat, quality);
+                };
+                img.src = currentImageURL;
+            });
         };
     }
 };
