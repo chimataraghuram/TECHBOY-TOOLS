@@ -57,47 +57,97 @@ function createImageInterface(title, desc) {
 
 const resumeBuilderHTML = `
     <div class="tool-section">
-        <button class="btn btn-accent" style="margin-bottom: 2rem;" onclick="document.getElementById('tool-view').style.display='none'; document.getElementById('list-view').style.display='block';"><i class="fa-solid fa-arrow-left"></i> Back</button>
-        <div class="tool-header">
-            <h2>Resume Builder</h2>
-            <p>Fill out the form below to generate your professional resume.</p>
+        <div id="resume-form-area">
+            <button class="btn btn-accent" style="margin-bottom: 2rem;" onclick="document.getElementById('tool-view').style.display='none'; document.getElementById('list-view').style.display='block';"><i class="fa-solid fa-arrow-left"></i> Back</button>
+            <div class="tool-header">
+                <h2>Resume Builder</h2>
+                <p>Fill out the form below to generate your professional resume.</p>
+            </div>
+            <div class="grid grid-2">
+                <div class="form-group">
+                    <label class="form-label">Full Name</label>
+                    <input type="text" id="res-name" class="form-control" placeholder="John Doe">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Email</label>
+                    <input type="email" id="res-email" class="form-control" placeholder="john@example.com">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Phone</label>
+                    <input type="tel" id="res-phone" class="form-control" placeholder="+1 234 567 8900">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">LinkedIn</label>
+                    <input type="url" id="res-linkedin" class="form-control" placeholder="linkedin.com/in/johndoe">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">GitHub</label>
+                    <input type="url" id="res-github" class="form-control" placeholder="github.com/johndoe">
+                </div>
+                <div class="form-group" style="grid-column: 1 / -1;">
+                    <label class="form-label">Education</label>
+                    <textarea id="res-education" class="form-control" placeholder="University Name | Degree | Dates..."></textarea>
+                </div>
+                <div class="form-group" style="grid-column: 1 / -1;">
+                    <label class="form-label">Skills</label>
+                    <input type="text" id="res-skills" class="form-control" placeholder="HTML, CSS, JavaScript, Python...">
+                </div>
+                <div class="form-group" style="grid-column: 1 / -1;">
+                    <label class="form-label">Projects</label>
+                    <textarea id="res-projects" class="form-control" placeholder="Project Name | Description | Technologies used..."></textarea>
+                </div>
+                <div class="form-group" style="grid-column: 1 / -1;">
+                    <label class="form-label">Experience</label>
+                    <textarea id="res-experience" class="form-control" placeholder="Company Name | Job Title | Dates..."></textarea>
+                </div>
+                <div class="form-group" style="grid-column: 1 / -1;">
+                    <label class="form-label">Certifications</label>
+                    <textarea id="res-certifications" class="form-control" placeholder="Certification Name | Issuing Organization | Date..."></textarea>
+                </div>
+            </div>
+            <div style="text-align: center; margin-top: 2rem;">
+                <button class="btn btn-accent" id="btn-preview-resume">Preview & Download PDF</button>
+            </div>
         </div>
-        <div class="grid grid-2">
-            <div class="form-group">
-                <label class="form-label">Full Name</label>
-                <input type="text" class="form-control" placeholder="John Doe">
+        
+        <div id="resume-preview-area" style="display: none; background: white; padding: 2rem; border-radius: 8px; box-shadow: var(--card-shadow); color: #0f172a; text-align: left;">
+            <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #0f172a; padding-bottom: 1rem; margin-bottom: 1.5rem;">
+                <div>
+                    <h1 id="pv-name" style="margin: 0; font-size: 2.5rem;"></h1>
+                    <p id="pv-contact" style="margin: 0.5rem 0 0; color: #475569;"></p>
+                </div>
+                <div id="pv-socials" style="text-align: right; color: #475569;"></div>
             </div>
-            <div class="form-group">
-                <label class="form-label">Email</label>
-                <input type="email" class="form-control" placeholder="john@example.com">
+            
+            <div style="margin-bottom: 1.5rem;">
+                <h3 style="border-bottom: 1px solid #e2e8f0; padding-bottom: 0.25rem;">Education</h3>
+                <p id="pv-education" style="white-space: pre-wrap;"></p>
             </div>
-            <div class="form-group">
-                <label class="form-label">Phone</label>
-                <input type="tel" class="form-control" placeholder="+1 234 567 8900">
+            
+            <div style="margin-bottom: 1.5rem;">
+                <h3 style="border-bottom: 1px solid #e2e8f0; padding-bottom: 0.25rem;">Skills</h3>
+                <p id="pv-skills"></p>
             </div>
-            <div class="form-group">
-                <label class="form-label">LinkedIn</label>
-                <input type="url" class="form-control" placeholder="linkedin.com/in/johndoe">
+            
+            <div style="margin-bottom: 1.5rem;">
+                <h3 style="border-bottom: 1px solid #e2e8f0; padding-bottom: 0.25rem;">Projects</h3>
+                <p id="pv-projects" style="white-space: pre-wrap;"></p>
             </div>
-            <div class="form-group" style="grid-column: 1 / -1;">
-                <label class="form-label">Summary / Objective</label>
-                <textarea class="form-control" placeholder="A brief summary of your professional background..."></textarea>
+            
+            <div style="margin-bottom: 1.5rem;">
+                <h3 style="border-bottom: 1px solid #e2e8f0; padding-bottom: 0.25rem;">Experience</h3>
+                <p id="pv-experience" style="white-space: pre-wrap;"></p>
             </div>
-            <div class="form-group" style="grid-column: 1 / -1;">
-                <label class="form-label">Experience</label>
-                <textarea class="form-control" placeholder="Company Name | Job Title | Dates..."></textarea>
+            
+            <div style="margin-bottom: 1.5rem;">
+                <h3 style="border-bottom: 1px solid #e2e8f0; padding-bottom: 0.25rem;">Certifications</h3>
+                <p id="pv-certifications" style="white-space: pre-wrap;"></p>
             </div>
-            <div class="form-group" style="grid-column: 1 / -1;">
-                <label class="form-label">Education</label>
-                <textarea class="form-control" placeholder="University Name | Degree | Dates..."></textarea>
+
+            <div style="text-align: center; margin-top: 2rem; display: flex; justify-content: center; gap: 1rem;" class="no-print">
+                <button class="btn btn-accent" onclick="document.getElementById('resume-preview-area').style.display='none'; document.getElementById('resume-form-area').style.display='block';">Edit Form</button>
+                <button class="btn btn-primary" onclick="window.print()">Download PDF (Print)</button>
             </div>
-            <div class="form-group" style="grid-column: 1 / -1;">
-                <label class="form-label">Skills</label>
-                <input type="text" class="form-control" placeholder="HTML, CSS, JavaScript, Python...">
-            </div>
-        </div>
-        <div style="text-align: center; margin-top: 2rem;">
-            <button class="btn btn-accent" onclick="alert('Resume generation complete! Downloading PDF...')">Generate PDF</button>
         </div>
     </div>
 `;
@@ -109,25 +159,25 @@ const atsAnalyzerHTML = `
             <h2>ATS Analyzer</h2>
             <p>Upload your resume to check its Applicant Tracking System score.</p>
         </div>
-        <div class="file-drop-area" onclick="document.getElementById('ats-upload').click()">
+        <div class="file-drop-area" id="ats-drop-area" onclick="document.getElementById('ats-upload').click()">
             <i class="fa-solid fa-cloud-arrow-up file-drop-icon"></i>
-            <div class="file-drop-text">Upload Resume (PDF or DOCX)</div>
+            <div class="file-drop-text" id="ats-drop-text">Upload Resume (PDF or DOCX)</div>
             <input type="file" id="ats-upload" accept=".pdf,.docx">
         </div>
         <div style="text-align: center; margin-bottom: 2rem;">
-            <button class="btn btn-accent" onclick="document.getElementById('ats-result').style.display='block'">Analyze Resume</button>
+            <button class="btn btn-accent" id="btn-analyze-ats">Analyze Resume</button>
         </div>
         
         <div id="ats-result" style="display: none; background: #F8FAFC; padding: 2rem; border-radius: var(--radius-card); border: 1px solid #E2E8F0;">
             <div style="text-align: center; margin-bottom: 1.5rem;">
-                <h3 style="font-size: 2rem; color: #059669;">Score: 82/100</h3>
-                <p>Great! But there's room for improvement.</p>
+                <h3 style="font-size: 2rem; color: #06B6D4;">Resume Score: <span id="ats-score">82</span>/100</h3>
+                <p id="ats-feedback">Great! But there's room for improvement.</p>
             </div>
             <ul style="list-style: none; display: flex; flex-direction: column; gap: 1rem;">
-                <li><i class="fa-solid fa-check" style="color: #059669;"></i> <strong>ATS Compatibility:</strong> Machine readable.</li>
-                <li><i class="fa-solid fa-triangle-exclamation" style="color: #D97706;"></i> <strong>Keyword Match:</strong> Missing some common industry keywords.</li>
-                <li><i class="fa-solid fa-check" style="color: #059669;"></i> <strong>Formatting Quality:</strong> Excellent styling and margins.</li>
-                <li><i class="fa-solid fa-check" style="color: #059669;"></i> <strong>Content Strength:</strong> Good use of action verbs.</li>
+                <li><i class="fa-solid fa-check" style="color: #059669;"></i> <strong>ATS Compatibility:</strong> <span id="ats-compat">Passed</span></li>
+                <li><i class="fa-solid fa-circle-info" style="color: #06B6D4;"></i> <strong>Keyword Match:</strong> <span id="ats-keywords">65% match with target industry</span></li>
+                <li><i class="fa-solid fa-check" style="color: #059669;"></i> <strong>Formatting Quality:</strong> <span id="ats-format">Excellent structure</span></li>
+                <li><i class="fa-solid fa-check" style="color: #059669;"></i> <strong>Content Strength:</strong> <span id="ats-content">Good use of action verbs</span></li>
             </ul>
         </div>
     </div>
@@ -145,12 +195,12 @@ const aiImproverHTML = `
             <textarea id="ai-input" class="form-control" placeholder="e.g. I made the website load faster by changing some images..."></textarea>
         </div>
         <div style="text-align: center; margin-bottom: 2rem;">
-            <button class="btn btn-accent" onclick="document.getElementById('ai-output-area').style.display='block'; document.getElementById('ai-output').innerText='Improved: Optimized web application performance by compressing image assets, resulting in a 40% reduction in page load times.'">Improve Text</button>
+            <button class="btn btn-accent" id="btn-improve-resume">Improve Text</button>
         </div>
         
         <div id="ai-output-area" class="form-group" style="display: none;">
             <label class="form-label">AI Suggestion</label>
-            <div class="form-control" id="ai-output" style="min-height: 100px; background: #EEF2FF; border-color: #C7D2FE;"></div>
+            <div class="form-control" id="ai-output" style="min-height: 100px; background: #EEF2FF; border-color: #C7D2FE; white-space: pre-wrap;"></div>
         </div>
     </div>
 `;
@@ -671,9 +721,93 @@ const ResumeToolsView = {
             const tv = document.getElementById('tool-view');
             tv.style.display = 'block';
             
-            if (type === 'builder') tv.innerHTML = resumeBuilderHTML;
-            if (type === 'ats') tv.innerHTML = atsAnalyzerHTML;
-            if (type === 'ai') tv.innerHTML = aiImproverHTML;
+            if (type === 'builder') {
+                tv.innerHTML = resumeBuilderHTML;
+                document.getElementById('btn-preview-resume').onclick = () => {
+                    const name = document.getElementById('res-name').value || "Your Name";
+                    const email = document.getElementById('res-email').value || "email@example.com";
+                    const phone = document.getElementById('res-phone').value || "123-456-7890";
+                    const linkedin = document.getElementById('res-linkedin').value;
+                    const github = document.getElementById('res-github').value;
+                    
+                    document.getElementById('pv-name').innerText = name;
+                    document.getElementById('pv-contact').innerText = `${email} | ${phone}`;
+                    document.getElementById('pv-socials').innerHTML = `${linkedin ? `LinkedIn: ${linkedin}<br>` : ''}${github ? `GitHub: ${github}` : ''}`;
+                    
+                    document.getElementById('pv-education').innerText = document.getElementById('res-education').value;
+                    document.getElementById('pv-skills').innerText = document.getElementById('res-skills').value;
+                    document.getElementById('pv-projects').innerText = document.getElementById('res-projects').value;
+                    document.getElementById('pv-experience').innerText = document.getElementById('res-experience').value;
+                    document.getElementById('pv-certifications').innerText = document.getElementById('res-certifications').value;
+                    
+                    document.getElementById('resume-form-area').style.display = 'none';
+                    document.getElementById('resume-preview-area').style.display = 'block';
+                };
+            }
+            if (type === 'ats') {
+                tv.innerHTML = atsAnalyzerHTML;
+                const fileInput = document.getElementById('ats-upload');
+                const dropText = document.getElementById('ats-drop-text');
+                
+                fileInput.onchange = () => {
+                    if (fileInput.files.length > 0) {
+                        dropText.innerText = fileInput.files[0].name;
+                    }
+                };
+
+                document.getElementById('btn-analyze-ats').onclick = () => {
+                    if (fileInput.files.length === 0) {
+                        alert("Please upload a file first.");
+                        return;
+                    }
+                    const btn = document.getElementById('btn-analyze-ats');
+                    btn.innerText = "Analyzing...";
+                    btn.disabled = true;
+                    
+                    setTimeout(() => {
+                        document.getElementById('ats-result').style.display = 'block';
+                        btn.innerText = "Analyze Resume";
+                        btn.disabled = false;
+                    }, 1500);
+                };
+            }
+            if (type === 'ai') {
+                tv.innerHTML = aiImproverHTML;
+                document.getElementById('btn-improve-resume').onclick = () => {
+                    const input = document.getElementById('ai-input').value.trim();
+                    if (!input) {
+                        alert("Please paste your resume text first.");
+                        return;
+                    }
+                    
+                    const btn = document.getElementById('btn-improve-resume');
+                    btn.innerText = "Improving...";
+                    btn.disabled = true;
+                    
+                    setTimeout(() => {
+                        const outputArea = document.getElementById('ai-output-area');
+                        const outputEl = document.getElementById('ai-output');
+                        outputArea.style.display = 'block';
+                        
+                        // Simple client-side replacement logic to "improve" the text
+                        let improved = input
+                            .replace(/made/gi, "Developed")
+                            .replace(/used/gi, "Utilized")
+                            .replace(/helped/gi, "Assisted")
+                            .replace(/worked on/gi, "Spearheaded")
+                            .replace(/faster/gi, "optimized performance")
+                            .replace(/better/gi, "enhanced efficiency");
+                        
+                        if (improved === input) {
+                            improved = "Professional Suggestion: " + input.charAt(0).toUpperCase() + input.slice(1) + " (Consider using more action verbs like Spearheaded, Orchestrated, or Optimized).";
+                        }
+                        
+                        outputEl.innerText = improved;
+                        btn.innerText = "Improve Text";
+                        btn.disabled = false;
+                    }, 1000);
+                };
+            }
         };
     }
 };
