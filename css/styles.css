@@ -1,12 +1,17 @@
-/* styles.css - Liquid Glass Professional Hybrid */
+/* styles.css - Modern Liquid Glass */
 :root {
-  /* Liquid Glass Palette */
-  --bg-gradient: linear-gradient(135deg, #0F172A 0%, #1E293B 100%);
+  /* Liquid Glass Palette - Exact Specs */
+  --bg-gradient: linear-gradient(135deg, #0f172a, #1e293b, #020617);
   --glass-bg: rgba(255, 255, 255, 0.08);
   --glass-border: rgba(255, 255, 255, 0.15);
   --glass-blur: blur(20px);
-  --glass-glow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+  --glass-glow: 0 8px 32px rgba(0, 0, 0, 0.3);
   
+  /* Navbar Specs */
+  --nav-bg: rgba(15, 23, 42, 0.7);
+  --nav-blur: blur(12px);
+  --nav-border: 1px solid rgba(255, 255, 255, 0.1);
+
   /* Text Colors */
   --text-main: #FFFFFF;
   --text-muted: #94A3B8;
@@ -14,11 +19,11 @@
   
   /* Accents */
   --primary-brand: #3B82F6;
-  --accent-doc: #FF4D4D;
-  --accent-img: #A78BFA;
-  --accent-utils: #34D399;
-  --accent-resume: #22D3EE;
-  --accent-games: #FBBF24;
+  --accent-doc: #EF4444;
+  --accent-img: #8B5CF6;
+  --accent-utils: #22C55E;
+  --accent-resume: #06B6D4;
+  --accent-games: #F59E0B;
   
   /* UI Elements */
   --radius-card: 16px;
@@ -77,14 +82,17 @@ ul {
 }
 
 /* =========================================
-   Layout: Navbar (Capsule Style)
+   Layout: Navbar (Modern Glass Bar)
    ========================================= */
 .navbar {
-  background: transparent;
-  padding: 1.5rem 0;
+  background: var(--nav-bg);
+  backdrop-filter: var(--nav-blur);
+  -webkit-backdrop-filter: var(--nav-blur);
+  padding: 1rem 0;
   position: sticky;
   top: 0;
   z-index: 1000;
+  border-bottom: var(--nav-border);
 }
 
 .nav-container {
@@ -94,18 +102,11 @@ ul {
 }
 
 .logo {
-  font-size: 1.4rem;
+  font-size: 1.5rem;
   font-weight: 800;
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  background: var(--glass-bg);
-  backdrop-filter: var(--glass-blur);
-  -webkit-backdrop-filter: var(--glass-blur);
-  padding: 0.6rem 1.2rem;
-  border-radius: 50px;
-  border: 1px solid var(--glass-border);
-  box-shadow: var(--glass-glow);
   color: white;
 }
 
@@ -115,27 +116,19 @@ ul {
 
 .nav-links {
   display: flex;
-  gap: 0.75rem;
-  background: rgba(15, 23, 42, 0.4);
-  backdrop-filter: blur(8px);
-  padding: 0.5rem;
-  border-radius: 50px;
-  border: 1px solid var(--glass-border);
+  gap: 1.5rem;
 }
 
 .nav-link {
-  color: #94A3B8;
-  font-weight: 600;
-  padding: 0.5rem 1.2rem;
-  border-radius: 50px;
+  color: rgba(255, 255, 255, 0.7);
+  font-weight: 500;
   transition: var(--transition);
-  font-size: 0.9rem;
+  font-size: 0.95rem;
 }
 
 .nav-link:hover, .nav-link.active {
   color: white;
-  background: var(--glass-bg);
-  box-shadow: 0 0 15px rgba(59, 130, 246, 0.3);
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
 }
 
 .nav-link.active {
@@ -205,25 +198,33 @@ ul {
 /* =========================================
    Components: Liquid Jelly Buttons
    ========================================= */
+/* =========================================
+   Components: Jelly Buttons
+   ========================================= */
 .btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 0.6rem;
-  padding: 0.8rem 2rem;
+  padding: 0.8rem 2.2rem;
   border-radius: 50px;
   font-weight: 700;
   cursor: pointer;
-  transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-  border: 1px solid rgba(255,255,255,0.1);
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  border: 1px solid rgba(255, 255, 255, 0.1);
   font-family: inherit;
   font-size: 1rem;
   color: white;
 }
 
+.btn:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 20px rgba(59, 130, 246, 0.4);
+}
+
 .btn-primary {
-  background: linear-gradient(135deg, rgba(59, 130, 246, 0.8) 0%, rgba(37, 99, 235, 0.8) 100%);
-  box-shadow: 0 8px 20px rgba(37, 99, 235, 0.3);
+  background: var(--primary-brand);
+  box-shadow: 0 8px 32px rgba(59, 130, 246, 0.3);
 }
 
 .btn-outline {
@@ -232,15 +233,9 @@ ul {
   backdrop-filter: blur(4px);
 }
 
-.btn:hover {
-  transform: scale(1.08) translateY(-3px);
-  box-shadow: 0 12px 25px rgba(59, 130, 246, 0.4);
-  border-color: rgba(255, 255, 255, 0.4);
-}
-
 .btn-accent {
-  background-color: var(--accent-color, var(--primary-brand));
-  box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+  background: var(--accent-color, var(--primary-brand));
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
 }
 
 .btn-sm {
@@ -398,13 +393,18 @@ ul {
 /* =========================================
    Footer
    ========================================= */
+/* =========================================
+   Footer (Glass Design)
+   ========================================= */
 .footer {
-  background-color: rgba(10, 15, 28, 0.95);
+  background: rgba(15, 23, 42, 0.7);
   backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
   color: white;
   padding: 5rem 0 3rem;
-  border-top: 1px solid var(--glass-border);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
   margin-top: auto;
+  box-shadow: 0 -8px 32px rgba(0, 0, 0, 0.2);
 }
 
 .footer-container {

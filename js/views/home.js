@@ -4,7 +4,7 @@ export default {
             <section class="hero">
                 <div class="container">
                     <h1>TECHBOY Tools</h1>
-                    <p>Free online tools for students and developers. Convert files, compress images, build resumes, and use helpful utilities.</p>
+                    <p>Free online tools for students and developers.</p>
                     <div class="hero-btns">
                         <a href="#document-tools" class="btn btn-primary">Explore Tools</a>
                         <a href="#resume-tools" class="btn btn-outline">Resume Builder</a>
