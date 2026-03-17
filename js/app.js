@@ -823,16 +823,16 @@ const GamesView = {
                     </div>
 
                     <div class="grid grid-2">
-                        <div class="card" style="--accent-color: var(--accent-games); cursor: pointer;" onclick="window.playGame('snake')">
+                        <div class="card" style="--accent-color: #F59E0B; cursor: pointer;" onclick="window.playGame('snake')">
                             <i class="fa-solid fa-staff-snake card-icon"></i>
                             <h2 class="card-title">Snake Game</h2>
                             <p class="card-desc">The classic snake game. Eat food, grow longer, don't hit the walls!</p>
                             <span class="btn btn-accent">Play Game</span>
                         </div>
-                        <div class="card" style="--accent-color: var(--accent-games); cursor: pointer;" onclick="window.playGame('same')">
+                        <div class="card" style="--accent-color: #F59E0B; cursor: pointer;" onclick="window.playGame('same')">
                             <i class="fa-solid fa-cubes card-icon"></i>
-                            <h2 class="card-title">Same Game (Coming Soon)</h2>
-                            <p class="card-desc">A simple tile-matching puzzle game.</p>
+                            <h2 class="card-title">Same Game</h2>
+                            <p class="card-desc">Click groups of adjacent same-colored blocks to clear the board.</p>
                             <span class="btn btn-accent">Play Game</span>
                         </div>
                     </div>
@@ -841,7 +841,7 @@ const GamesView = {
                 <div id="game-view" style="display: none;">
                     <button class="btn btn-accent" style="margin-bottom: 1rem;" onclick="window.stopGame()"><i class="fa-solid fa-arrow-left"></i> Back to Games</button>
                     <div id="game-container" style="display: flex; justify-content: center; align-items: center; background: #0F172A; padding: 2rem; border-radius: var(--radius-card); box-shadow: var(--card-shadow); flex-direction: column;">
-                        <!-- Game Canvas injected here -->
+                        <!-- Game Canvas/Content injected here -->
                     </div>
                 </div>
             </div>
@@ -868,13 +868,122 @@ const GamesView = {
                     <canvas id="snakeCanvas" width="400" height="400" style="background: #000; border: 2px solid white; border-radius: 4px;"></canvas>
                 `;
                 initSnakeGame();
-            } else {
+            } else if (type === 'same') {
                 gc.innerHTML = `
                     <h3 style="color: white; margin-bottom: 1rem;">Same Game</h3>
-                    <p style="color: #94A3B8;">This game is currently under development!</p>
+                    <p style="color: #94A3B8; margin-bottom: 1.5rem;">Click groups of 2 or more same-colored blocks.</p>
+                    <div id="sameGameBoard" style="display: grid; grid-template-columns: repeat(10, 30px); gap: 2px; background: #1E293B; padding: 10px; border-radius: 8px;"></div>
+                    <div id="sameGameInfo" style="margin-top: 1rem; color: white; display: flex; gap: 2rem;">
+                        <span>Score: <span id="sameGameScore">0</span></span>
+                        <button class="btn btn-accent btn-sm" onclick="window.playGame('same')">Restart</button>
+                    </div>
                 `;
+                initSameGame();
             }
         };
+
+        function initSameGame() {
+            const board = document.getElementById('sameGameBoard');
+            const scoreDisplay = document.getElementById('sameGameScore');
+            let score = 0;
+            const rows = 10;
+            const cols = 10;
+            const colors = ['#EF4444', '#3B82F6', '#10B981', '#F59E0B'];
+            let grid = [];
+
+            // Initialize Grid
+            for (let r = 0; r < rows; r++) {
+                grid[r] = [];
+                for (let c = 0; c < cols; c++) {
+                    grid[r][c] = colors[Math.floor(Math.random() * colors.length)];
+                }
+            }
+
+            function render() {
+                board.innerHTML = '';
+                for (let r = 0; r < rows; r++) {
+                    for (let c = 0; c < cols; c++) {
+                        const cell = document.createElement('div');
+                        cell.style.width = '30px';
+                        cell.style.height = '30px';
+                        cell.style.backgroundColor = grid[r][c] || 'transparent';
+                        cell.style.borderRadius = '4px';
+                        cell.style.cursor = grid[r][c] ? 'pointer' : 'default';
+                        if (grid[r][c]) {
+                            cell.onclick = () => handleClick(r, c);
+                        }
+                        board.appendChild(cell);
+                    }
+                }
+                scoreDisplay.innerText = score;
+            }
+
+            function handleClick(r, c) {
+                const color = grid[r][c];
+                if (!color) return;
+
+                const group = findGroup(r, c, color);
+                if (group.length < 2) return;
+
+                score += group.length * (group.length - 1);
+                group.forEach(([gr, gc]) => {
+                    grid[gr][gc] = null;
+                });
+
+                applyGravity();
+                render();
+            }
+
+            function findGroup(r, c, color, visited = new Set()) {
+                const pos = `${r},${c}`;
+                if (visited.has(pos) || r < 0 || r >= rows || c < 0 || c >= cols || grid[r][c] !== color) {
+                    return [];
+                }
+
+                visited.add(pos);
+                let group = [[r, c]];
+                group = group.concat(findGroup(r + 1, c, color, visited));
+                group = group.concat(findGroup(r - 1, c, color, visited));
+                group = group.concat(findGroup(r, c + 1, color, visited));
+                group = group.concat(findGroup(r, c - 1, color, visited));
+                return group;
+            }
+
+            function applyGravity() {
+                // Vertical Gravity
+                for (let c = 0; c < cols; c++) {
+                    let writePtr = rows - 1;
+                    for (let r = rows - 1; r >= 0; r--) {
+                        if (grid[r][c]) {
+                            grid[writePtr][c] = grid[r][c];
+                            if (writePtr !== r) grid[r][c] = null;
+                            writePtr--;
+                        }
+                    }
+                }
+
+                // Horizontal Gravity (Shift columns if empty)
+                for (let c = 0; c < cols - 1; c++) {
+                    let isEmpty = true;
+                    for (let r = 0; r < rows; r++) {
+                        if (grid[r][c]) {
+                            isEmpty = false;
+                            break;
+                        }
+                    }
+                    if (isEmpty) {
+                        for (let nextC = c + 1; nextC < cols; nextC++) {
+                            for (let r = 0; r < rows; r++) {
+                                grid[r][nextC - 1] = grid[r][nextC];
+                                grid[r][nextC] = null;
+                            }
+                        }
+                    }
+                }
+            }
+
+            render();
+        }
 
         function initSnakeGame() {
             const canvas = document.getElementById('snakeCanvas');
@@ -899,6 +1008,8 @@ const GamesView = {
                 else if(key == 38 && d != "DOWN"){ d = "UP"; }
                 else if(key == 39 && d != "LEFT"){ d = "RIGHT"; }
                 else if(key == 40 && d != "UP"){ d = "DOWN"; }
+                // Prevent scrolling with arrows
+                if([37, 38, 39, 40].includes(key)) event.preventDefault();
             };
             
             document.addEventListener("keydown", keyHandler);
@@ -964,7 +1075,7 @@ const GamesView = {
             snakeInterval = setInterval(draw, 100);
         }
     }
-};
+};;
 
 // Routing 
 const routes = {
