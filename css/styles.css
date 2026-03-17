@@ -151,13 +151,20 @@ ul {
   left: 24px;
 }
 
-.nav-logo-img {
-  height: 42px;
-  width: 42px;
-  border-radius: 50%;
-  object-fit: cover;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  background: rgba(0, 0, 0, 0.2);
+}
+
+/* Branding: Mascot Logo */
+.logo img.nav-logo-img {
+  height: 42px !important;
+  width: 42px !important;
+  min-width: 42px;
+  min-height: 42px;
+  border-radius: 50% !important;
+  object-fit: cover !important;
+  border: 1.5px solid rgba(255, 255, 255, 0.3) !important;
+  background: rgba(0, 0, 0, 0.4);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+  margin-right: 4px;
 }
 
 .logo:hover {
