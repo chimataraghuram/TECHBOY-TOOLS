@@ -104,7 +104,7 @@ export default {
         return `
             <div class="container">
                 <div id="list-view">
-                    <div class="tool-header">
+                    <div class="tool-header" style="padding-top: 4rem;">
                         <h1>Resume Tools</h1>
                         <p>Build, analyze and improve your resume.</p>
                     </div>
@@ -112,23 +112,23 @@ export default {
                     <div class="grid grid-3">
                         <div class="card" style="--accent-color: var(--accent-resume); cursor: pointer;" onclick="window.showResumeTool('builder')">
                             <i class="fa-solid fa-file-invoice card-icon"></i>
-                            <h2 class="card-title">Resume Builder</h2>
-                            <p class="card-desc">Create a clean, professional resume using our simple form builder.</p>
-                            <span class="btn btn-accent">Open Tool</span>
+                            <h3>Resume Builder</h3>
+                            <p>Create a clean, professional resume using our simple form builder.</p>
+                            <span class="btn btn-accent btn-sm">Open Tool</span>
                         </div>
 
                         <div class="card" style="--accent-color: var(--accent-resume); cursor: pointer;" onclick="window.showResumeTool('ats')">
                             <i class="fa-solid fa-magnifying-glass-chart card-icon"></i>
-                            <h2 class="card-title">ATS Analyzer</h2>
-                            <p class="card-desc">Check your resume against ATS standards and get an instant score.</p>
-                            <span class="btn btn-accent">Open Tool</span>
+                            <h3>ATS Analyzer</h3>
+                            <p>Check your resume against ATS standards and get an instant score.</p>
+                            <span class="btn btn-accent btn-sm">Open Tool</span>
                         </div>
 
                         <div class="card" style="--accent-color: var(--accent-resume); cursor: pointer;" onclick="window.showResumeTool('ai')">
                             <i class="fa-solid fa-robot card-icon"></i>
-                            <h2 class="card-title">AI Resume Improver</h2>
-                            <p class="card-desc">Enhance your resume bullet points with professional phrasing.</p>
-                            <span class="btn btn-accent">Open Tool</span>
+                            <h3>AI Resume Improver</h3>
+                            <p>Enhance your resume bullet points with professional phrasing.</p>
+                            <span class="btn btn-accent btn-sm">Open Tool</span>
                         </div>
                     </div>
                 </div>

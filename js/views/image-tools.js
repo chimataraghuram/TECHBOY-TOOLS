@@ -26,7 +26,7 @@ export default {
         return `
             <div class="container">
                 <div id="list-view">
-                    <div class="tool-header">
+                    <div class="tool-header" style="padding-top: 4rem;">
                         <h1>Image Tools</h1>
                         <p>Compress, resize and convert images.</p>
                     </div>
@@ -34,30 +34,30 @@ export default {
                     <div class="grid grid-2">
                         <div class="card" style="--accent-color: var(--accent-img); cursor: pointer;" onclick="window.activeToolImg('Image Compressor', 'Reduce image file size with minimal loss in quality.')">
                             <i class="fa-solid fa-compress card-icon"></i>
-                            <h2 class="card-title">Image Compressor</h2>
-                            <p class="card-desc">Reduce image file size with minimal loss in quality.</p>
-                            <span class="btn btn-accent">Select Tool</span>
+                            <h3>Image Compressor</h3>
+                            <p>Reduce image file size with minimal loss in quality.</p>
+                            <span class="btn btn-accent btn-sm">Select Tool</span>
                         </div>
 
                         <div class="card" style="--accent-color: var(--accent-img); cursor: pointer;" onclick="window.activeToolImg('Resize Image', 'Change the dimensions of your image quickly.')">
                             <i class="fa-solid fa-expand card-icon"></i>
-                            <h2 class="card-title">Resize Image</h2>
-                            <p class="card-desc">Change the dimensions of your image quickly.</p>
-                            <span class="btn btn-accent">Select Tool</span>
+                            <h3>Resize Image</h3>
+                            <p>Change the dimensions of your image quickly.</p>
+                            <span class="btn btn-accent btn-sm">Select Tool</span>
                         </div>
 
                         <div class="card" style="--accent-color: var(--accent-img); cursor: pointer;" onclick="window.activeToolImg('JPG to PNG', 'Convert JPG images to PNG format with transparency support.')">
                             <i class="fa-solid fa-file-image card-icon"></i>
-                            <h2 class="card-title">JPG to PNG</h2>
-                            <p class="card-desc">Convert JPG images to PNG format with transparency support.</p>
-                            <span class="btn btn-accent">Select Tool</span>
+                            <h3>JPG to PNG</h3>
+                            <p>Convert JPG images to PNG format with transparency support.</p>
+                            <span class="btn btn-accent btn-sm">Select Tool</span>
                         </div>
 
                         <div class="card" style="--accent-color: var(--accent-img); cursor: pointer;" onclick="window.activeToolImg('PNG to JPG', 'Convert PNG images to smaller JPG format.')">
                             <i class="fa-solid fa-image card-icon"></i>
-                            <h2 class="card-title">PNG to JPG</h2>
-                            <p class="card-desc">Convert PNG images to smaller JPG format.</p>
-                            <span class="btn btn-accent">Select Tool</span>
+                            <h3>PNG to JPG</h3>
+                            <p>Convert PNG images to smaller JPG format.</p>
+                            <span class="btn btn-accent btn-sm">Select Tool</span>
                         </div>
                     </div>
                 </div>

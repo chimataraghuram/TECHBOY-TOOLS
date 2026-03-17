@@ -3,7 +3,7 @@ export default {
         return `
             <div class="container">
                 <div id="list-view">
-                    <div class="tool-header">
+                    <div class="tool-header" style="padding-top: 4rem;">
                         <h1>Mini Games</h1>
                         <p>Take a break and play some simple browser games.</p>
                     </div>
@@ -11,16 +11,16 @@ export default {
                     <div class="grid grid-2">
                         <div class="card" style="--accent-color: var(--accent-games); cursor: pointer;" onclick="window.playGame('snake')">
                             <i class="fa-solid fa-staff-snake card-icon"></i>
-                            <h2 class="card-title">Snake Game</h2>
-                            <p class="card-desc">The classic snake game. Eat food, grow longer, don't hit the walls!</p>
-                            <span class="btn btn-accent">Play Game</span>
+                            <h3>Snake Game</h3>
+                            <p>The classic snake game. Eat food, grow longer, don't hit the walls!</p>
+                            <span class="btn btn-accent btn-sm">Play Game</span>
                         </div>
 
                         <div class="card" style="--accent-color: var(--accent-games); cursor: pointer;" onclick="window.playGame('same')">
                             <i class="fa-solid fa-cubes card-icon"></i>
-                            <h2 class="card-title">Same Game (Coming Soon)</h2>
-                            <p class="card-desc">A simple tile-matching puzzle game.</p>
-                            <span class="btn btn-accent">Play Game</span>
+                            <h3>Same Game (Coming Soon)</h3>
+                            <p>A simple tile-matching puzzle game.</p>
+                            <span class="btn btn-accent btn-sm">Play Game</span>
                         </div>
                     </div>
                 </div>

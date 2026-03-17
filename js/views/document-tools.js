@@ -26,7 +26,7 @@ export default {
         return `
             <div class="container">
                 <div id="list-view">
-                    <div class="tool-header">
+                    <div class="tool-header" style="padding-top: 4rem;">
                         <h1>Document Tools</h1>
                         <p>Convert, merge and compress PDF files.</p>
                     </div>
@@ -34,37 +34,37 @@ export default {
                     <div class="grid grid-3">
                         <div class="card" style="--accent-color: var(--accent-doc); cursor: pointer;" onclick="window.activeTool('Merge PDF', 'Combine multiple PDFs into one unified document.')">
                             <i class="fa-solid fa-object-group card-icon"></i>
-                            <h2 class="card-title">Merge PDF</h2>
-                            <p class="card-desc">Combine multiple PDFs into one unified document.</p>
-                            <span class="btn btn-accent">Select Tool</span>
+                            <h3>Merge PDF</h3>
+                            <p>Combine multiple PDFs into one unified document.</p>
+                            <span class="btn btn-accent btn-sm">Select Tool</span>
                         </div>
 
                         <div class="card" style="--accent-color: var(--accent-doc); cursor: pointer;" onclick="window.activeTool('Split PDF', 'Separate one page or a whole set for easy conversion into independent PDF files.')">
                             <i class="fa-solid fa-scissors card-icon"></i>
-                            <h2 class="card-title">Split PDF</h2>
-                            <p class="card-desc">Separate one page or a whole set for easy conversion into independent PDF files.</p>
-                            <span class="btn btn-accent">Select Tool</span>
+                            <h3>Split PDF</h3>
+                            <p>Separate one page or a whole set for easy conversion into independent PDF files.</p>
+                            <span class="btn btn-accent btn-sm">Select Tool</span>
                         </div>
 
                         <div class="card" style="--accent-color: var(--accent-doc); cursor: pointer;" onclick="window.activeTool('Compress PDF', 'Reduce file size while optimizing for maximal PDF quality.')">
                             <i class="fa-solid fa-compress card-icon"></i>
-                            <h2 class="card-title">Compress PDF</h2>
-                            <p class="card-desc">Reduce file size while optimizing for maximal PDF quality.</p>
-                            <span class="btn btn-accent">Select Tool</span>
+                            <h3>Compress PDF</h3>
+                            <p>Reduce file size while optimizing for maximal PDF quality.</p>
+                            <span class="btn btn-accent btn-sm">Select Tool</span>
                         </div>
 
                         <div class="card" style="--accent-color: var(--accent-doc); cursor: pointer;" onclick="window.activeTool('PDF to Word', 'Easily convert your PDF files into easy to edit DOC and DOCX documents.')">
                             <i class="fa-solid fa-file-word card-icon"></i>
-                            <h2 class="card-title">PDF to Word</h2>
-                            <p class="card-desc">Easily convert your PDF files into easy to edit DOC and DOCX documents.</p>
-                            <span class="btn btn-accent">Select Tool</span>
+                            <h3>PDF to Word</h3>
+                            <p>Easily convert your PDF files into easy to edit DOC and DOCX documents.</p>
+                            <span class="btn btn-accent btn-sm">Select Tool</span>
                         </div>
 
                         <div class="card" style="--accent-color: var(--accent-doc); cursor: pointer;" onclick="window.activeTool('Word to PDF', 'Make DOC and DOCX files easy to read by converting them to PDF.')">
                             <i class="fa-solid fa-file-pdf card-icon"></i>
-                            <h2 class="card-title">Word to PDF</h2>
-                            <p class="card-desc">Make DOC and DOCX files easy to read by converting them to PDF.</p>
-                            <span class="btn btn-accent">Select Tool</span>
+                            <h3>Word to PDF</h3>
+                            <p>Make DOC and DOCX files easy to read by converting them to PDF.</p>
+                            <span class="btn btn-accent btn-sm">Select Tool</span>
                         </div>
                     </div>
                 </div>

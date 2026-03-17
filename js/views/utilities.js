@@ -3,7 +3,7 @@ export default {
         return `
             <div class="container">
                 <div id="list-view">
-                    <div class="tool-header">
+                    <div class="tool-header" style="padding-top: 4rem;">
                         <h1>Utilities</h1>
                         <p>Useful everyday tools for students and developers.</p>
                     </div>
@@ -11,51 +11,51 @@ export default {
                     <div class="grid grid-3">
                         <div class="card" style="--accent-color: var(--accent-utils); cursor: pointer;" onclick="window.showUtil('Word Counter')">
                             <i class="fa-solid fa-calculator card-icon"></i>
-                            <h2 class="card-title">Word Counter</h2>
-                            <p class="card-desc">Count words, characters, and reading time.</p>
-                            <span class="btn btn-accent">Open Tool</span>
+                            <h3>Word Counter</h3>
+                            <p>Count words, characters, and reading time.</p>
+                            <span class="btn btn-accent btn-sm">Open Tool</span>
                         </div>
 
                         <div class="card" style="--accent-color: var(--accent-utils); cursor: pointer;" onclick="window.showUtil('Text Case Converter')">
                             <i class="fa-solid fa-font card-icon"></i>
-                            <h2 class="card-title">Text Case Converter</h2>
-                            <p class="card-desc">Change text to UPPERCASE, lowercase, Title Case.</p>
-                            <span class="btn btn-accent">Open Tool</span>
+                            <h3>Text Case Converter</h3>
+                            <p>Change text to UPPERCASE, lowercase, Title Case.</p>
+                            <span class="btn btn-accent btn-sm">Open Tool</span>
                         </div>
                         
                         <div class="card" style="--accent-color: var(--accent-utils); cursor: pointer;" onclick="window.showUtil('Password Generator')">
                             <i class="fa-solid fa-key card-icon"></i>
-                            <h2 class="card-title">Password Generator</h2>
-                            <p class="card-desc">Generate strong and secure passwords.</p>
-                            <span class="btn btn-accent">Open Tool</span>
+                            <h3>Password Generator</h3>
+                            <p>Generate strong and secure passwords.</p>
+                            <span class="btn btn-accent btn-sm">Open Tool</span>
                         </div>
 
                         <div class="card" style="--accent-color: var(--accent-utils); cursor: pointer;" onclick="window.showUtil('Password Strength Checker')">
                             <i class="fa-solid fa-shield-halved card-icon"></i>
-                            <h2 class="card-title">Password Strength Checker</h2>
-                            <p class="card-desc">Check how secure your password really is.</p>
-                            <span class="btn btn-accent">Open Tool</span>
+                            <h3>Password Strength Checker</h3>
+                            <p>Check how secure your password really is.</p>
+                            <span class="btn btn-accent btn-sm">Open Tool</span>
                         </div>
 
                         <div class="card" style="--accent-color: var(--accent-utils); cursor: pointer;" onclick="window.showUtil('QR Code Generator')">
                             <i class="fa-solid fa-qrcode card-icon"></i>
-                            <h2 class="card-title">QR Code Generator</h2>
-                            <p class="card-desc">Create QR codes for links, text, and contacts.</p>
-                            <span class="btn btn-accent">Open Tool</span>
+                            <h3>QR Code Generator</h3>
+                            <p>Create QR codes for links, text, and contacts.</p>
+                            <span class="btn btn-accent btn-sm">Open Tool</span>
                         </div>
 
                         <div class="card" style="--accent-color: var(--accent-utils); cursor: pointer;" onclick="window.showUtil('JSON Formatter')">
                             <i class="fa-solid fa-brackets-curly card-icon"></i>
-                            <h2 class="card-title">JSON Formatter</h2>
-                            <p class="card-desc">Format and validate JSON strings.</p>
-                            <span class="btn btn-accent">Open Tool</span>
+                            <h3>JSON Formatter</h3>
+                            <p>Format and validate JSON strings.</p>
+                            <span class="btn btn-accent btn-sm">Open Tool</span>
                         </div>
 
                         <div class="card" style="--accent-color: var(--accent-utils); cursor: pointer;" onclick="window.showUtil('Text Summarizer')">
                             <i class="fa-solid fa-align-left card-icon"></i>
-                            <h2 class="card-title">Text Summarizer</h2>
-                            <p class="card-desc">Condense long text into a shorter summary.</p>
-                            <span class="btn btn-accent">Open Tool</span>
+                            <h3>Text Summarizer</h3>
+                            <p>Condense long text into a shorter summary.</p>
+                            <span class="btn btn-accent btn-sm">Open Tool</span>
                         </div>
                     </div>
                 </div>
@@ -78,7 +78,7 @@ export default {
 
                         <div class="form-group" id="util-output-group">
                             <label class="form-label">Result</label>
-                            <div class="form-control" id="util-output" style="min-height: 100px; background: #F8FAFC; white-space: pre-wrap;"></div>
+                            <div class="form-control" id="util-output" style="min-height: 100px; background: rgba(255,255,255,0.05); color: white; border-color: rgba(255,255,255,0.1); white-space: pre-wrap;"></div>
                         </div>
                     </div>
                 </div>
@@ -89,7 +89,7 @@ export default {
         window.showUtil = (title) => {
             document.getElementById('list-view').style.display = 'none';
             document.getElementById('util-view').style.display = 'block';
-            document.getElementById('util-header').innerHTML = \`<h2>\${title}</h2>\`;
+            document.getElementById('util-header').innerHTML = `<h2>${title}</h2>`;
             
             const actionContainer = document.getElementById('util-actions');
             const inputEl = document.getElementById('util-input');
@@ -104,15 +104,15 @@ export default {
                 actionContainer.innerHTML = '<button class="btn btn-accent" id="btn-action">Count</button>';
                 document.getElementById('btn-action').addEventListener('click', () => {
                     const text = inputEl.value;
-                    const words = text.trim() ? text.trim().split(/\\s+/).length : 0;
+                    const words = text.trim() ? text.trim().split(/\s+/).length : 0;
                     const chars = text.length;
-                    outputEl.textContent = \`Words: \${words}\\nCharacters: \${chars}\`;
+                    outputEl.textContent = `Words: ${words}\nCharacters: ${chars}`;
                 });
             } else if (title === 'Text Case Converter') {
-                actionContainer.innerHTML = \`
+                actionContainer.innerHTML = `
                     <button class="btn btn-accent" id="btn-upper">UPPERCASE</button>
                     <button class="btn btn-accent" id="btn-lower">lowercase</button>
-                \`;
+                `;
                 document.getElementById('btn-upper').addEventListener('click', () => outputEl.textContent = inputEl.value.toUpperCase());
                 document.getElementById('btn-lower').addEventListener('click', () => outputEl.textContent = inputEl.value.toLowerCase());
             } else if (title === 'Password Generator') {
