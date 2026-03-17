@@ -1131,4 +1131,52 @@ window.addEventListener('load', () => {
     mobileMenuBtn.addEventListener('click', () => {
         navLinksContainer.classList.toggle('active');
     });
+
+    // Particle Background System
+    initParticles();
 });
+
+function initParticles() {
+    const container = document.getElementById('bg-particles');
+    if (!container) return;
+    
+    const particleCount = 20;
+    for (let i = 0; i < particleCount; i++) {
+        createParticle(container);
+    }
+}
+
+function createParticle(container) {
+    const particle = document.createElement('div');
+    particle.className = 'particle';
+    
+    // Random size between 100px and 300px
+    const size = Math.random() * 200 + 100;
+    particle.style.width = `${size}px`;
+    particle.style.height = `${size}px`;
+    
+    // Random initial position
+    particle.style.left = `${Math.random() * 100}%`;
+    particle.style.top = `${Math.random() * 100}%`;
+    
+    container.appendChild(particle);
+    
+    // Animate
+    animateParticle(particle);
+}
+
+function animateParticle(particle) {
+    const duration = Math.random() * 20000 + 10000; // 10-30s
+    const targetX = (Math.random() - 0.5) * 40; // max 20% move
+    const targetY = (Math.random() - 0.5) * 40;
+    
+    particle.animate([
+        { transform: 'translate(0, 0)' },
+        { transform: `translate(${targetX}vw, ${targetY}vh)` },
+        { transform: 'translate(0, 0)' }
+    ], {
+        duration: duration,
+        iterations: Infinity,
+        easing: 'ease-in-out'
+    });
+}
