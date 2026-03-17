@@ -209,52 +209,116 @@ const aiImproverHTML = `
 const HomeView = {
     render() {
         return `
-            <div class="hero-wrapper">
-                <div class="hero">
-                    <div class="hero-illustration">
-                        <i class="fa-solid fa-cubes"></i>
-                    </div>
+            <section class="hero">
+                <div class="container">
                     <h1>TECHBOY Tools</h1>
                     <p>Free online tools for students and developers. Convert files, compress images, build resumes, and use helpful utilities.</p>
-                    <a href="#document-tools" class="btn btn-primary">Explore Tools</a>
+                    <div class="hero-btns">
+                        <a href="#document-tools" class="btn btn-primary">Explore Tools</a>
+                        <a href="#resume-tools" class="btn btn-outline">Resume Builder</a>
+                    </div>
                 </div>
-            </div>
+            </section>
 
             <div class="container">
-                <div class="grid grid-3">
+                <div class="search-container">
+                    <i class="fa-solid fa-magnifying-glass search-icon"></i>
+                    <input type="text" class="search-bar" id="tool-search" placeholder="Search tools... e.g. PDF, Resume, Password">
+                </div>
+
+                <h2 class="section-title">Tool Categories</h2>
+                <div class="grid grid-3" id="category-grid">
                     <a href="#document-tools" class="card" style="--accent-color: var(--accent-doc);">
                         <i class="fa-solid fa-file-pdf card-icon"></i>
-                        <h2 class="card-title">Document Tools</h2>
-                        <p class="card-desc">Convert, merge and compress PDF files.</p>
-                        <span class="card-link">Try Document Tools <i class="fa-solid fa-arrow-right"></i></span>
+                        <h3>Document Tools</h3>
+                        <p>Convert, merge and compress PDF files.</p>
+                        <span class="card-link">Get Started <i class="fa-solid fa-arrow-right"></i></span>
                     </a>
                     <a href="#image-tools" class="card" style="--accent-color: var(--accent-img);">
                         <i class="fa-solid fa-image card-icon"></i>
-                        <h2 class="card-title">Image Tools</h2>
-                        <p class="card-desc">Compress, resize and convert images.</p>
-                        <span class="card-link">Try Image Tools <i class="fa-solid fa-arrow-right"></i></span>
+                        <h3>Image Tools</h3>
+                        <p>Compress, resize and convert images.</p>
+                        <span class="card-link">Get Started <i class="fa-solid fa-arrow-right"></i></span>
                     </a>
                     <a href="#utilities" class="card" style="--accent-color: var(--accent-utils);">
-                        <i class="fa-solid fa-wrench card-icon"></i>
-                        <h2 class="card-title">Utilities</h2>
-                        <p class="card-desc">Useful tools for students and developers.</p>
-                        <span class="card-link">Try Utilities <i class="fa-solid fa-arrow-right"></i></span>
+                        <i class="fa-solid fa-screwdriver-wrench card-icon"></i>
+                        <h3>Utilities</h3>
+                        <p>Everyday tools for developers and students.</p>
+                        <span class="card-link">Get Started <i class="fa-solid fa-arrow-right"></i></span>
                     </a>
                     <a href="#resume-tools" class="card" style="--accent-color: var(--accent-resume);">
-                        <i class="fa-solid fa-file-invoice card-icon"></i>
-                        <h2 class="card-title">Resume Tools</h2>
-                        <p class="card-desc">Build and analyze your resume.</p>
-                        <span class="card-link">Try Resume Tools <i class="fa-solid fa-arrow-right"></i></span>
+                        <i class="fa-solid fa-id-card card-icon"></i>
+                        <h3>Resume Tools</h3>
+                        <p>Build and analyze your resume.</p>
+                        <span class="card-link">Get Started <i class="fa-solid fa-arrow-right"></i></span>
                     </a>
                     <a href="#games" class="card" style="--accent-color: var(--accent-games);">
                         <i class="fa-solid fa-gamepad card-icon"></i>
-                        <h2 class="card-title">Mini Games</h2>
-                        <p class="card-desc">Play simple browser games.</p>
-                        <span class="card-link">Play Games <i class="fa-solid fa-arrow-right"></i></span>
+                        <h3>Mini Games</h3>
+                        <p>Play simple browser games.</p>
+                        <span class="card-link">Play Now <i class="fa-solid fa-arrow-right"></i></span>
                     </a>
+                </div>
+
+                <h2 class="section-title" style="margin-top: 6rem;">Featured Tools</h2>
+                <div class="featured-grid">
+                    <div class="card" style="cursor: pointer;" onclick="window.location.hash='#resume-tools'">
+                        <i class="fa-solid fa-file-invoice" style="font-size: 2rem; color: var(--accent-resume); margin-bottom: 1rem;"></i>
+                        <h4>Resume Builder</h4>
+                        <p>Professional resume in minutes.</p>
+                    </div>
+                    <div class="card" style="cursor: pointer;" onclick="window.location.hash='#document-tools'">
+                        <i class="fa-solid fa-object-group" style="font-size: 2rem; color: var(--accent-doc); margin-bottom: 1rem;"></i>
+                        <h4>Merge PDF</h4>
+                        <p>Combine multiple PDF files.</p>
+                    </div>
+                    <div class="card" style="cursor: pointer;" onclick="window.location.hash='#utilities'">
+                        <i class="fa-solid fa-key" style="font-size: 2rem; color: var(--accent-utils); margin-bottom: 1rem;"></i>
+                        <h4>Password Generator</h4>
+                        <p>Secure, random passwords.</p>
+                    </div>
+                    <div class="card" style="cursor: pointer;" onclick="window.location.hash='#image-tools'">
+                        <i class="fa-solid fa-compress" style="font-size: 2rem; color: var(--accent-img); margin-bottom: 1rem;"></i>
+                        <h4>Image Compressor</h4>
+                        <p>Optimize images for web.</p>
+                    </div>
+                </div>
+
+                <div class="stats-section">
+                    <div class="stat-item">
+                        <h4>20+</h4>
+                        <p>Tools Available</p>
+                    </div>
+                    <div class="stat-item">
+                        <h4>100%</h4>
+                        <p>Free to Use</p>
+                    </div>
+                    <div class="stat-item">
+                        <h4>Secure</h4>
+                        <p>Client-side Processing</p>
+                    </div>
                 </div>
             </div>
         `;
+    },
+    postRender() {
+        // Simple search functionality
+        const searchBar = document.getElementById('tool-search');
+        if (!searchBar) return;
+        const cards = document.querySelectorAll('#category-grid .card');
+        
+        searchBar.addEventListener('input', (e) => {
+            const term = e.target.value.toLowerCase();
+            cards.forEach(card => {
+                const title = card.querySelector('h3').innerText.toLowerCase();
+                const desc = card.querySelector('p').innerText.toLowerCase();
+                if (title.includes(term) || desc.includes(term)) {
+                    card.style.display = 'flex';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        });
     }
 };
 
@@ -1131,52 +1195,4 @@ window.addEventListener('load', () => {
     mobileMenuBtn.addEventListener('click', () => {
         navLinksContainer.classList.toggle('active');
     });
-
-    // Particle Background System
-    initParticles();
 });
-
-function initParticles() {
-    const container = document.getElementById('bg-particles');
-    if (!container) return;
-    
-    const particleCount = 20;
-    for (let i = 0; i < particleCount; i++) {
-        createParticle(container);
-    }
-}
-
-function createParticle(container) {
-    const particle = document.createElement('div');
-    particle.className = 'particle';
-    
-    // Random size between 100px and 300px
-    const size = Math.random() * 200 + 100;
-    particle.style.width = `${size}px`;
-    particle.style.height = `${size}px`;
-    
-    // Random initial position
-    particle.style.left = `${Math.random() * 100}%`;
-    particle.style.top = `${Math.random() * 100}%`;
-    
-    container.appendChild(particle);
-    
-    // Animate
-    animateParticle(particle);
-}
-
-function animateParticle(particle) {
-    const duration = Math.random() * 20000 + 10000; // 10-30s
-    const targetX = (Math.random() - 0.5) * 40; // max 20% move
-    const targetY = (Math.random() - 0.5) * 40;
-    
-    particle.animate([
-        { transform: 'translate(0, 0)' },
-        { transform: `translate(${targetX}vw, ${targetY}vh)` },
-        { transform: 'translate(0, 0)' }
-    ], {
-        duration: duration,
-        iterations: Infinity,
-        easing: 'ease-in-out'
-    });
-}
