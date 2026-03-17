@@ -1,7 +1,7 @@
 export default {
     render() {
         return `
-            <div class="container">
+            <div class="container animate-in">
                 <div id="list-view">
                     <div class="tool-header" style="padding-top: 4rem;">
                         <h1>Utilities</h1>
@@ -9,49 +9,49 @@ export default {
                     </div>
 
                     <div class="grid grid-3">
-                        <div class="card" style="--accent-color: var(--accent-utils); cursor: pointer;" onclick="window.showUtil('Word Counter')">
+                        <div class="card animate-in" data-delay="1" style="--accent-color: var(--accent-utils); cursor: pointer;" onclick="window.showUtil('Word Counter')">
                             <i class="fa-solid fa-calculator card-icon"></i>
                             <h3>Word Counter</h3>
                             <p>Count words, characters, and reading time.</p>
                             <span class="btn btn-accent btn-sm">Open Tool</span>
                         </div>
 
-                        <div class="card" style="--accent-color: var(--accent-utils); cursor: pointer;" onclick="window.showUtil('Text Case Converter')">
+                        <div class="card animate-in" data-delay="2" style="--accent-color: var(--accent-utils); cursor: pointer;" onclick="window.showUtil('Text Case Converter')">
                             <i class="fa-solid fa-font card-icon"></i>
                             <h3>Text Case Converter</h3>
                             <p>Change text to UPPERCASE, lowercase, Title Case.</p>
                             <span class="btn btn-accent btn-sm">Open Tool</span>
                         </div>
                         
-                        <div class="card" style="--accent-color: var(--accent-utils); cursor: pointer;" onclick="window.showUtil('Password Generator')">
+                        <div class="card animate-in" data-delay="3" style="--accent-color: var(--accent-utils); cursor: pointer;" onclick="window.showUtil('Password Generator')">
                             <i class="fa-solid fa-key card-icon"></i>
                             <h3>Password Generator</h3>
                             <p>Generate strong and secure passwords.</p>
                             <span class="btn btn-accent btn-sm">Open Tool</span>
                         </div>
 
-                        <div class="card" style="--accent-color: var(--accent-utils); cursor: pointer;" onclick="window.showUtil('Password Strength Checker')">
+                        <div class="card animate-in" data-delay="4" style="--accent-color: var(--accent-utils); cursor: pointer;" onclick="window.showUtil('Password Strength Checker')">
                             <i class="fa-solid fa-shield-halved card-icon"></i>
                             <h3>Password Strength Checker</h3>
                             <p>Check how secure your password really is.</p>
                             <span class="btn btn-accent btn-sm">Open Tool</span>
                         </div>
 
-                        <div class="card" style="--accent-color: var(--accent-utils); cursor: pointer;" onclick="window.showUtil('QR Code Generator')">
+                        <div class="card animate-in" data-delay="5" style="--accent-color: var(--accent-utils); cursor: pointer;" onclick="window.showUtil('QR Code Generator')">
                             <i class="fa-solid fa-qrcode card-icon"></i>
                             <h3>QR Code Generator</h3>
                             <p>Create QR codes for links, text, and contacts.</p>
                             <span class="btn btn-accent btn-sm">Open Tool</span>
                         </div>
 
-                        <div class="card" style="--accent-color: var(--accent-utils); cursor: pointer;" onclick="window.showUtil('JSON Formatter')">
+                        <div class="card animate-in" data-delay="1" style="--accent-color: var(--accent-utils); cursor: pointer;" onclick="window.showUtil('JSON Formatter')">
                             <i class="fa-solid fa-brackets-curly card-icon"></i>
                             <h3>JSON Formatter</h3>
                             <p>Format and validate JSON strings.</p>
                             <span class="btn btn-accent btn-sm">Open Tool</span>
                         </div>
 
-                        <div class="card" style="--accent-color: var(--accent-utils); cursor: pointer;" onclick="window.showUtil('Text Summarizer')">
+                        <div class="card animate-in" data-delay="2" style="--accent-color: var(--accent-utils); cursor: pointer;" onclick="window.showUtil('Text Summarizer')">
                             <i class="fa-solid fa-align-left card-icon"></i>
                             <h3>Text Summarizer</h3>
                             <p>Condense long text into a shorter summary.</p>
@@ -61,7 +61,7 @@ export default {
                 </div>
 
                 <div id="util-view" style="display: none;">
-                    <div class="tool-section">
+                    <div class="tool-section animate-in">
                         <button class="btn btn-accent" style="margin-bottom: 2rem;" onclick="document.getElementById('util-view').style.display='none'; document.getElementById('list-view').style.display='block';"><i class="fa-solid fa-arrow-left"></i> Back to Utilities</button>
                         <div class="tool-header" id="util-header">
                             <h2>Tool Name</h2>

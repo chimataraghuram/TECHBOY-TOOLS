@@ -1,7 +1,7 @@
 export default {
     render() {
         return `
-            <div class="container">
+            <div class="container animate-in">
                 <div id="list-view">
                     <div class="tool-header" style="padding-top: 4rem;">
                         <h1>Mini Games</h1>
@@ -9,14 +9,14 @@ export default {
                     </div>
 
                     <div class="grid grid-2">
-                        <div class="card" style="--accent-color: var(--accent-games); cursor: pointer;" onclick="window.playGame('snake')">
+                        <div class="card animate-in" data-delay="1" style="--accent-color: var(--accent-games); cursor: pointer;" onclick="window.playGame('snake')">
                             <i class="fa-solid fa-staff-snake card-icon"></i>
                             <h3>Snake Game</h3>
                             <p>The classic snake game. Eat food, grow longer, don't hit the walls!</p>
                             <span class="btn btn-accent btn-sm">Play Game</span>
                         </div>
 
-                        <div class="card" style="--accent-color: var(--accent-games); cursor: pointer;" onclick="window.playGame('same')">
+                        <div class="card animate-in" data-delay="2" style="--accent-color: var(--accent-games); cursor: pointer;" onclick="window.playGame('same')">
                             <i class="fa-solid fa-cubes card-icon"></i>
                             <h3>Same Game (Coming Soon)</h3>
                             <p>A simple tile-matching puzzle game.</p>
@@ -26,9 +26,11 @@ export default {
                 </div>
 
                 <div id="game-view" style="display: none;">
-                    <button class="btn btn-accent" style="margin-bottom: 1rem;" onclick="window.stopGame()"><i class="fa-solid fa-arrow-left"></i> Back to Games</button>
-                    <div id="game-container" style="display: flex; justify-content: center; align-items: center; background: #0F172A; padding: 2rem; border-radius: var(--radius-card); box-shadow: var(--card-shadow); flex-direction: column;">
-                        <!-- Game Canvas injected here -->
+                    <div class="animate-in">
+                        <button class="btn btn-accent" style="margin-bottom: 1rem;" onclick="window.stopGame()"><i class="fa-solid fa-arrow-left"></i> Back to Games</button>
+                        <div id="game-container" style="display: flex; justify-content: center; align-items: center; background: #0F172A; padding: 2rem; border-radius: var(--radius-card); box-shadow: var(--card-glow); flex-direction: column; border: 1px solid rgba(255,255,255,0.1);">
+                            <!-- Game Canvas injected here -->
+                        </div>
                     </div>
                 </div>
             </div>

@@ -1,6 +1,6 @@
 function createImageInterface(title, desc) {
     return `
-        <div class="tool-section">
+        <div class="tool-section animate-in">
             <button class="btn btn-accent" style="margin-bottom: 2rem;" onclick="document.getElementById('tool-view').style.display='none'; document.getElementById('list-view').style.display='block';"><i class="fa-solid fa-arrow-left"></i> Back to Tools</button>
             <div class="tool-header">
                 <h2>${title}</h2>
@@ -24,7 +24,7 @@ function createImageInterface(title, desc) {
 export default {
     render() {
         return `
-            <div class="container">
+            <div class="container animate-in">
                 <div id="list-view">
                     <div class="tool-header" style="padding-top: 4rem;">
                         <h1>Image Tools</h1>
@@ -32,28 +32,28 @@ export default {
                     </div>
 
                     <div class="grid grid-2">
-                        <div class="card" style="--accent-color: var(--accent-img); cursor: pointer;" onclick="window.activeToolImg('Image Compressor', 'Reduce image file size with minimal loss in quality.')">
+                        <div class="card animate-in" data-delay="1" style="--accent-color: var(--accent-img); cursor: pointer;" onclick="window.activeToolImg('Image Compressor', 'Reduce image file size with minimal loss in quality.')">
                             <i class="fa-solid fa-compress card-icon"></i>
                             <h3>Image Compressor</h3>
                             <p>Reduce image file size with minimal loss in quality.</p>
                             <span class="btn btn-accent btn-sm">Select Tool</span>
                         </div>
 
-                        <div class="card" style="--accent-color: var(--accent-img); cursor: pointer;" onclick="window.activeToolImg('Resize Image', 'Change the dimensions of your image quickly.')">
+                        <div class="card animate-in" data-delay="2" style="--accent-color: var(--accent-img); cursor: pointer;" onclick="window.activeToolImg('Resize Image', 'Change the dimensions of your image quickly.')">
                             <i class="fa-solid fa-expand card-icon"></i>
                             <h3>Resize Image</h3>
                             <p>Change the dimensions of your image quickly.</p>
                             <span class="btn btn-accent btn-sm">Select Tool</span>
                         </div>
 
-                        <div class="card" style="--accent-color: var(--accent-img); cursor: pointer;" onclick="window.activeToolImg('JPG to PNG', 'Convert JPG images to PNG format with transparency support.')">
+                        <div class="card animate-in" data-delay="3" style="--accent-color: var(--accent-img); cursor: pointer;" onclick="window.activeToolImg('JPG to PNG', 'Convert JPG images to PNG format with transparency support.')">
                             <i class="fa-solid fa-file-image card-icon"></i>
                             <h3>JPG to PNG</h3>
                             <p>Convert JPG images to PNG format with transparency support.</p>
                             <span class="btn btn-accent btn-sm">Select Tool</span>
                         </div>
 
-                        <div class="card" style="--accent-color: var(--accent-img); cursor: pointer;" onclick="window.activeToolImg('PNG to JPG', 'Convert PNG images to smaller JPG format.')">
+                        <div class="card animate-in" data-delay="4" style="--accent-color: var(--accent-img); cursor: pointer;" onclick="window.activeToolImg('PNG to JPG', 'Convert PNG images to smaller JPG format.')">
                             <i class="fa-solid fa-image card-icon"></i>
                             <h3>PNG to JPG</h3>
                             <p>Convert PNG images to smaller JPG format.</p>

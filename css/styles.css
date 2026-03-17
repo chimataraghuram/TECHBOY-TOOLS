@@ -29,7 +29,37 @@
   --radius-card: 16px;
   --radius-btn: 12px;
   --transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  --jelly-transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
+
+/* =========================================
+   Animations
+   ========================================= */
+@keyframes fadeInSlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+.animate-in {
+  animation: fadeInSlideUp 0.8s var(--transition) both;
+}
+
+[data-delay="1"] { animation-delay: 0.1s; }
+[data-delay="2"] { animation-delay: 0.2s; }
+[data-delay="3"] { animation-delay: 0.3s; }
+[data-delay="4"] { animation-delay: 0.4s; }
+[data-delay="5"] { animation-delay: 0.5s; }
 
 * {
   box-sizing: border-box;
@@ -108,6 +138,12 @@ ul {
   align-items: center;
   gap: 0.5rem;
   color: white;
+  transition: var(--jelly-transition);
+}
+
+.logo:hover {
+  transform: scale(1.05);
+  text-shadow: 0 0 15px rgba(59, 130, 246, 0.5);
 }
 
 .logo i {
@@ -210,16 +246,22 @@ ul {
   border-radius: 50px;
   font-weight: 700;
   cursor: pointer;
-  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  transition: var(--jelly-transition);
   border: 1px solid rgba(255, 255, 255, 0.1);
   font-family: inherit;
   font-size: 1rem;
   color: white;
+  position: relative;
+  overflow: hidden;
 }
 
 .btn:hover {
-  transform: scale(1.05);
-  box-shadow: 0 0 20px rgba(59, 130, 246, 0.4);
+  transform: scale(1.05) translateY(-2px);
+  box-shadow: 0 10px 25px rgba(59, 130, 246, 0.4);
+}
+
+.btn:active {
+  transform: scale(0.95);
 }
 
 .btn-primary {

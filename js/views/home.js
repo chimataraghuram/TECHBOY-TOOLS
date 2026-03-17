@@ -1,7 +1,7 @@
 export default {
     render() {
         return `
-            <section class="hero">
+            <section class="hero animate-in">
                 <div class="container">
                     <h1>TECHBOY Tools</h1>
                     <p>Free online tools for students and developers.</p>
@@ -12,7 +12,7 @@ export default {
                 </div>
             </section>
 
-            <div class="container">
+            <div class="container animate-in" data-delay="1">
                 <div class="search-container">
                     <i class="fa-solid fa-magnifying-glass search-icon"></i>
                     <input type="text" class="search-bar" id="tool-search" placeholder="Search tools... e.g. PDF, Resume, Password">
@@ -20,31 +20,31 @@ export default {
 
                 <h2 class="section-title">Tool Categories</h2>
                 <div class="grid grid-3" id="category-grid">
-                    <a href="#document-tools" class="card" style="--accent-color: var(--accent-doc);">
+                    <a href="#document-tools" class="card animate-in" data-delay="1" style="--accent-color: var(--accent-doc);">
                         <i class="fa-solid fa-file-pdf card-icon"></i>
                         <h3>Document Tools</h3>
                         <p>Convert, merge and compress PDF files.</p>
                         <span class="card-link">Get Started <i class="fa-solid fa-arrow-right"></i></span>
                     </a>
-                    <a href="#image-tools" class="card" style="--accent-color: var(--accent-img);">
+                    <a href="#image-tools" class="card animate-in" data-delay="2" style="--accent-color: var(--accent-img);">
                         <i class="fa-solid fa-image card-icon"></i>
                         <h3>Image Tools</h3>
                         <p>Compress, resize and convert images.</p>
                         <span class="card-link">Get Started <i class="fa-solid fa-arrow-right"></i></span>
                     </a>
-                    <a href="#utilities" class="card" style="--accent-color: var(--accent-utils);">
+                    <a href="#utilities" class="card animate-in" data-delay="3" style="--accent-color: var(--accent-utils);">
                         <i class="fa-solid fa-screwdriver-wrench card-icon"></i>
                         <h3>Utilities</h3>
                         <p>Everyday tools for developers and students.</p>
                         <span class="card-link">Get Started <i class="fa-solid fa-arrow-right"></i></span>
                     </a>
-                    <a href="#resume-tools" class="card" style="--accent-color: var(--accent-resume);">
+                    <a href="#resume-tools" class="card animate-in" data-delay="4" style="--accent-color: var(--accent-resume);">
                         <i class="fa-solid fa-id-card card-icon"></i>
                         <h3>Resume Tools</h3>
                         <p>Build and analyze your resume.</p>
                         <span class="card-link">Get Started <i class="fa-solid fa-arrow-right"></i></span>
                     </a>
-                    <a href="#games" class="card" style="--accent-color: var(--accent-games);">
+                    <a href="#games" class="card animate-in" data-delay="5" style="--accent-color: var(--accent-games);">
                         <i class="fa-solid fa-gamepad card-icon"></i>
                         <h3>Mini Games</h3>
                         <p>Play simple browser games.</p>
