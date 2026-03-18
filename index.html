@@ -23,7 +23,7 @@
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
     <!-- Font Awesome for Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Main Stylesheet -->
@@ -51,16 +51,17 @@
         <div class="nav-container">
             <a href="#home" class="logo">
                 <img src="assets/logo_main.jpg" alt="TECHBOY Tools Logo" class="nav-logo-img">
-                TECHBOY Tools
+                <span class="logo-text">TECHBOY</span>
             </a>
             <ul class="nav-links">
                 <li><a href="#home" class="nav-link active" data-target="home">Home</a></li>
-                <li><a href="#document-tools" class="nav-link" data-target="document-tools">Document Tools</a></li>
-                <li><a href="#image-tools" class="nav-link" data-target="image-tools">Image Tools</a></li>
+                <li><a href="#document-tools" class="nav-link" data-target="document-tools">Docs</a></li>
+                <li><a href="#image-tools" class="nav-link" data-target="image-tools">Images</a></li>
                 <li><a href="#utilities" class="nav-link" data-target="utilities">Utilities</a></li>
-                <li><a href="#resume-tools" class="nav-link" data-target="resume-tools">Resume Tools</a></li>
+                <li><a href="#resume-tools" class="nav-link" data-target="resume-tools">Resume</a></li>
                 <li><a href="#games" class="nav-link" data-target="games">Games</a></li>
             </ul>
+            <button id="mobile-menu-btn" aria-label="Menu"><i class="fa-solid fa-bars"></i></button>
         </div>
     </nav>
 
@@ -74,20 +75,29 @@
         <div class="container footer-container">
             <div class="footer-info">
                 <h3>TECHBOY Tools</h3>
-                <p>Advanced toolkit for creators and developers.</p>
-                <p>&copy; 2026 TECHBOY. Built with precision.</p>
+                <p>A premium suite of client-side tools for creators and developers. 100% free, no sign-up required.</p>
+                <p style="margin-top: 0.5rem;">Built with ❤️ in 2026.</p>
             </div>
             <div class="footer-links">
-                <h4>Explore</h4>
+                <h4>Tools</h4>
                 <ul>
-                    <li><a href="#home">Home</a></li>
                     <li><a href="#document-tools">Document Tools</a></li>
                     <li><a href="#image-tools">Image Tools</a></li>
                     <li><a href="#utilities">Utilities</a></li>
                     <li><a href="#resume-tools">Resume Tools</a></li>
-                    <li><a href="#games">Games</a></li>
+                    <li><a href="#games">Mini Games</a></li>
                 </ul>
             </div>
+            <div class="footer-links">
+                <h4>Links</h4>
+                <ul>
+                    <li><a href="https://github.com/chimataraghuram/TECHBOY-TOOLS" target="_blank">GitHub Repo</a></li>
+                    <li><a href="#home">Back to Top</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom container">
+            <p>&copy; 2026 TECHBOY Tools &mdash; All tools run locally in your browser.</p>
         </div>
     </footer>
 

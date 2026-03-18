@@ -61,14 +61,16 @@ window.utils = {
     renderToolCard(tool) {
         const pinned = this.getPinnedTools().includes(tool.id);
         return `
-            <div class="card card-featured" style="--accent-color: ${tool.color}; cursor: pointer;" onclick="window.location.hash='${tool.category}'; if(window.activeTool) window.activeTool('${tool.name}', '${tool.desc}')">
-                <div class="card-pin-btn ${pinned ? 'active' : ''}" onclick="event.stopPropagation(); window.togglePin('${tool.id}')">
+            <div class="card card-featured" style="--accent-color: ${tool.color}; --accent-color-bg: ${tool.color.replace(')', '-bg)').replace('var(', 'var(')}; cursor: pointer;" onclick="window.location.hash='${tool.category}'; if(window.activeTool) window.activeTool('${tool.name}', '${tool.desc}')">
+                <div class="card-pin-btn ${pinned ? 'active' : ''}" onclick="event.stopPropagation(); window.togglePin('${tool.id}')" title="${pinned ? 'Unpin' : 'Pin'} tool">
                     <i class="fa-solid fa-thumbtack"></i>
                 </div>
-                <i class="fa-solid ${tool.icon} card-icon"></i>
+                <div class="card-icon-wrap">
+                    <i class="fa-solid ${tool.icon} card-icon"></i>
+                </div>
                 <h3 class="card-title">${tool.name}</h3>
                 <p class="card-desc">${tool.desc}</p>
-                <span class="btn btn-accent" style="margin-top: auto; width: 100%;">Select Tool</span>
+                <span class="btn btn-accent" style="margin-top: auto; width: 100%;">Open Tool <i class="fa-solid fa-arrow-right" style="font-size:0.75rem;"></i></span>
             </div>
         `;
     },
@@ -378,73 +380,46 @@ const HomeView = {
         return `
             <section class="hero">
                 <div class="container">
-                    <h1>TECHBOY Tools</h1>
-                    <p>Free online tools for students and developers. Convert files, compress images, build resumes, and use helpful utilities.</p>
-                    <div class="hero-btns">
-                        <a href="#document-tools" class="btn btn-primary">Explore Tools</a>
-                        <a href="#resume-tools" class="btn btn-outline">Resume Builder</a>
+                    <div class="hero-badge">
+                        <i class="fa-solid fa-bolt"></i>
+                        100% Free &amp; Client-Side — No Sign-Up Required
+                    </div>
+                    <h1>Your Ultimate<br>Maker Dashboard</h1>
+                    <p>A premium suite of tools for students, designers, and developers. PDFs, images, code, resumes and more — all in one place.</p>
+                    <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+                        <a href="#document-tools" class="btn btn-primary"><i class="fa-solid fa-rocket"></i> Explore Tools</a>
+                        <a href="#resume-tools" class="btn btn-accent"><i class="fa-solid fa-file-lines"></i> Resume Builder</a>
                     </div>
                 </div>
             </section>
 
             <div class="container">
-                <div id="dashboard-section" style="margin-bottom: 4rem;">
-                    <div id="pinned-section" style="display: none; margin-bottom: 2rem;">
-                        <h2 class="section-title">Your Dashboard</h2>
-                        <div class="grid grid-3" id="pinned-grid"></div>
+                <!-- Dashboard: Pinned & Recent -->
+                <div id="dashboard-section" style="margin-bottom: 3.5rem;">
+                    <div id="pinned-section" style="display: none; margin-bottom: 2.5rem;">
+                        <div class="section-header">
+                            <div class="section-eyebrow">Pinned</div>
+                            <h2 class="section-title">Your Dashboard</h2>
+                        </div>
+                        <div class="grid grid-auto" id="pinned-grid"></div>
                     </div>
                     <div id="recent-section" style="display: none;">
-                        <h2 class="section-title">Recently Used Tools</h2>
-                        <div class="grid grid-3" id="recent-grid"></div>
+                        <div class="section-header">
+                            <div class="section-eyebrow">Recent</div>
+                            <h2 class="section-title">Recently Used Tools</h2>
+                        </div>
+                        <div class="grid grid-auto" id="recent-grid"></div>
                     </div>
                 </div>
 
+                <!-- Search -->
                 <div class="search-container">
                     <i class="fa-solid fa-magnifying-glass search-icon"></i>
-                    <input type="text" class="search-bar" id="tool-search" placeholder="Search tools... e.g. PDF, Resume, Password">
+                    <input type="text" class="search-bar" id="tool-search" placeholder="Search 20+ tools — PDF, OCR, Password...">
                     <div id="search-results" class="search-dropdown"></div>
                 </div>
 
-                <h2 class="section-title">Tool Categories</h2>
-                <div class="grid grid-3" id="category-grid">
-                    <a href="#document-tools" class="card" style="--accent-color: var(--accent-doc);">
-                        <i class="fa-solid fa-file-pdf card-icon"></i>
-                        <h3>Document Tools</h3>
-                        <p>Convert, merge and compress PDF files.</p>
-                        <span class="card-link">Get Started <i class="fa-solid fa-arrow-right"></i></span>
-                    </a>
-                    <a href="#image-tools" class="card" style="--accent-color: var(--accent-img);">
-                        <i class="fa-solid fa-image card-icon"></i>
-                        <h3>Image Tools</h3>
-                        <p>Compress, resize and convert images.</p>
-                        <span class="card-link">Get Started <i class="fa-solid fa-arrow-right"></i></span>
-                    </a>
-                    <a href="#utilities" class="card" style="--accent-color: var(--accent-utils);">
-                        <i class="fa-solid fa-screwdriver-wrench card-icon"></i>
-                        <h3>Utilities</h3>
-                        <p>Everyday tools for developers and students.</p>
-                        <span class="card-link">Get Started <i class="fa-solid fa-arrow-right"></i></span>
-                    </a>
-                    <a href="#resume-tools" class="card" style="--accent-color: var(--accent-resume);">
-                        <i class="fa-solid fa-id-card card-icon"></i>
-                        <h3>Resume Tools</h3>
-                        <p>Build and analyze your resume.</p>
-                        <span class="card-link">Get Started <i class="fa-solid fa-arrow-right"></i></span>
-                    </a>
-                    <a href="#games" class="card" style="--accent-color: var(--accent-games);">
-                        <i class="fa-solid fa-gamepad card-icon"></i>
-                        <h3>Mini Games</h3>
-                        <p>Play simple browser games.</p>
-                        <span class="card-link">Play Now <i class="fa-solid fa-arrow-right"></i></span>
-                    </a>
-                </div>
-
-                <h2 class="section-title" style="margin-top: 8rem;">Featured Tools</h2>
-                <div class="grid grid-4">
-                    ${window.toolsRegistry.filter(t => ['res-builder', 'pdf-merge', 'pw-gen', 'img-compress'].includes(t.id)).map(t => window.utils.renderToolCard(t)).join('')}
-                </div>
-
-
+                <!-- Stats -->
                 <div class="stats-section">
                     <div class="stat-item">
                         <h4 id="impact-count">${window.utils.getImpact()}</h4>
@@ -455,9 +430,60 @@ const HomeView = {
                         <p>Tools Available</p>
                     </div>
                     <div class="stat-item">
-                        <h4>100%</h4>
-                        <p>Free to Use</p>
+                        <h4>5</h4>
+                        <p>Categories</p>
                     </div>
+                    <div class="stat-item">
+                        <h4>100%</h4>
+                        <p>Free &amp; Private</p>
+                    </div>
+                </div>
+
+                <!-- Categories -->
+                <div class="section-header">
+                    <div class="section-eyebrow">Explore</div>
+                    <h2 class="section-title">Tool Categories</h2>
+                </div>
+                <div class="grid grid-3" style="margin-bottom: 5rem;">
+                    <a href="#document-tools" class="category-card" style="--accent-color: var(--accent-doc); --accent-color-bg: var(--accent-doc-bg); --glow-color: rgba(244,63,94,0.2);">
+                        <div class="category-icon"><i class="fa-solid fa-file-pdf"></i></div>
+                        <div class="category-label">Document Tools</div>
+                        <div class="category-count">6 tools — PDF, DOCX &amp; more</div>
+                        <div class="category-arrow">Explore <i class="fa-solid fa-arrow-right"></i></div>
+                    </a>
+                    <a href="#image-tools" class="category-card" style="--accent-color: var(--accent-img); --accent-color-bg: var(--accent-img-bg); --glow-color: rgba(168,85,247,0.2);">
+                        <div class="category-icon"><i class="fa-solid fa-image"></i></div>
+                        <div class="category-label">Image Tools</div>
+                        <div class="category-count">7 tools — Compress, OCR &amp; AI</div>
+                        <div class="category-arrow">Explore <i class="fa-solid fa-arrow-right"></i></div>
+                    </a>
+                    <a href="#utilities" class="category-card" style="--accent-color: var(--accent-utils); --accent-color-bg: var(--accent-utils-bg); --glow-color: rgba(16,185,129,0.2);">
+                        <div class="category-icon"><i class="fa-solid fa-screwdriver-wrench"></i></div>
+                        <div class="category-label">Utilities</div>
+                        <div class="category-count">9 tools — QR, Code, JSON &amp; more</div>
+                        <div class="category-arrow">Explore <i class="fa-solid fa-arrow-right"></i></div>
+                    </a>
+                    <a href="#resume-tools" class="category-card" style="--accent-color: var(--accent-resume); --accent-color-bg: var(--accent-resume-bg); --glow-color: rgba(6,182,212,0.2);">
+                        <div class="category-icon"><i class="fa-solid fa-id-card"></i></div>
+                        <div class="category-label">Resume Tools</div>
+                        <div class="category-count">3 tools — Build, Analyze &amp; Enhance</div>
+                        <div class="category-arrow">Explore <i class="fa-solid fa-arrow-right"></i></div>
+                    </a>
+                    <a href="#games" class="category-card" style="--accent-color: var(--accent-games); --accent-color-bg: var(--accent-games-bg); --glow-color: rgba(245,158,11,0.2);">
+                        <div class="category-icon"><i class="fa-solid fa-gamepad"></i></div>
+                        <div class="category-label">Mini Games</div>
+                        <div class="category-count">2 games — Take a fun break!</div>
+                        <div class="category-arrow">Play Now <i class="fa-solid fa-arrow-right"></i></div>
+                    </a>
+                </div>
+
+                <!-- Featured Tools -->
+                <div class="section-header">
+                    <div class="section-eyebrow">Highlights</div>
+                    <h2 class="section-title">Featured Tools</h2>
+                </div>
+                <div class="grid grid-4" style="margin-bottom: 6rem;">
+                    ${window.toolsRegistry.filter(t => ['res-builder', 'pdf-merge', 'pw-gen', 'img-compress'].includes(t.id)).map(t => window.utils.renderToolCard(t)).join('')}
                 </div>
             </div>
         `;
