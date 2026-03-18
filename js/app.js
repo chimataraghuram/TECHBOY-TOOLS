@@ -38,21 +38,6 @@ window.utils = {
         localStorage.setItem('pinned_tools', JSON.stringify(pinned));
         return pinned.includes(toolId);
     },
-    // Theme Engine
-    setTheme(theme) {
-        document.body.setAttribute('data-theme', theme);
-        localStorage.setItem('techboy_theme', theme);
-        const icon = theme === 'glass' ? 'fa-circle-half-stroke' : (theme === 'space' ? 'fa-moon' : 'fa-bolt');
-        const btn = document.getElementById('theme-toggle');
-        if (btn) btn.innerHTML = `<i class="fa-solid ${icon}"></i>`;
-        
-        // Update Particles color based on theme
-        // (Handled automatically by CSS variables now)
-    },
-    initTheme() {
-        const saved = localStorage.getItem('techboy_theme') || 'glass';
-        this.setTheme(saved);
-    },
     renderToolCard(tool) {
         const pinned = this.getPinnedTools().includes(tool.id);
         return `
@@ -1602,8 +1587,6 @@ if (mobileMenuBtn) {
 
 initParticles();
 
-// Theme and Magnetic Cards
-window.utils.initTheme();
 window.utils.initMagneticCards();
 
 function initParticles() {
