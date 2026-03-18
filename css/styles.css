@@ -220,17 +220,13 @@ body::after {
 .logo {
   display: flex;
   align-items: center;
-  gap: 0.75rem;
-  padding: 0.5rem 1.25rem 0.5rem 0.5rem;
-  background: var(--glass-2);
-  backdrop-filter: var(--glass-blur);
-  -webkit-backdrop-filter: var(--glass-blur);
-  border: 1px solid var(--glass-border-bright);
-  border-radius: var(--radius-full);
-  box-shadow: var(--shadow-md), inset 0 1px 0 rgba(255,255,255,0.08);
+  gap: 0.85rem;
+  padding: 0;
+  background: transparent;
+  border: none;
+  box-shadow: none;
   transition: var(--jelly-transition);
   flex-shrink: 0;
-  /* Anchored to the left; nav-links center themselves via flex */
 }
 
 .logo:hover {
@@ -240,17 +236,18 @@ body::after {
 }
 
 .logo img.nav-logo-img {
-  width: 46px; height: 46px;
+  width: 58px; height: 58px;
   border-radius: 50%;
   object-fit: cover;
-  border: 2px solid rgba(255,255,255,0.2);
+  border: 2px solid rgba(255,255,255,0.25);
+  box-shadow: 0 0 16px rgba(99,102,241,0.3);
 }
 
 .logo-text {
   font-family: 'Space Grotesk', sans-serif;
-  font-size: 0.95rem;
-  font-weight: 700;
-  letter-spacing: -0.01em;
+  font-size: 1.1rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
   color: var(--text-primary);
 }
 
