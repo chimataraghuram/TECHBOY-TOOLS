@@ -209,7 +209,7 @@ body::after {
 .nav-container {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-start;
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 28px;
@@ -251,8 +251,7 @@ body::after {
   color: var(--text-primary);
 }
 
-/* Nav links pill — centered naturally because the container is space-between
-   and the right side is occupied by the mobile-btn placeholder */
+/* Nav links pill */
 .nav-links {
   display: flex;
   align-items: center;
@@ -264,10 +263,6 @@ body::after {
   border-radius: var(--radius-full);
   border: 1px solid var(--glass-border);
   box-shadow: var(--shadow-md);
-  /* Center trick: push to center ignoring logo width */
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
 }
 
 .nav-link {
@@ -296,6 +291,7 @@ body::after {
 /* Mobile menu button */
 #mobile-menu-btn {
   display: none;
+  margin-left: auto;
   background: var(--glass-2);
   border: 1px solid var(--glass-border);
   color: var(--text-primary);
