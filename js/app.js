@@ -38,6 +38,26 @@ window.utils = {
         localStorage.setItem('pinned_tools', JSON.stringify(pinned));
         return pinned.includes(toolId);
     },
+    getRecentTools() {
+        return JSON.parse(localStorage.getItem('techboy_recent') || '[]');
+    },
+    trackToolUse(toolId) {
+        let recent = this.getRecentTools();
+        recent = recent.filter(id => id !== toolId);
+        recent.unshift(toolId);
+        if (recent.length > 3) recent.pop();
+        localStorage.setItem('techboy_recent', JSON.stringify(recent));
+        this.trackImpact();
+    },
+    getImpact() {
+        return parseInt(localStorage.getItem('techboy_impact') || '0');
+    },
+    trackImpact() {
+        let impact = this.getImpact() + 1;
+        localStorage.setItem('techboy_impact', impact);
+        const el = document.getElementById('impact-count');
+        if(el) el.innerText = impact;
+    },
     renderToolCard(tool) {
         const pinned = this.getPinnedTools().includes(tool.id);
         return `
@@ -71,6 +91,20 @@ window.utils = {
                 card.style.transition = 'var(--transition)';
             });
         });
+
+        // Magnetic hover for nav links
+        const navLinks = document.querySelectorAll('.nav-link');
+        navLinks.forEach(link => {
+            link.addEventListener('mousemove', (e) => {
+                const rect = link.getBoundingClientRect();
+                const x = (e.clientX - rect.left - rect.width / 2) * 0.3;
+                const y = (e.clientY - rect.top - rect.height / 2) * 0.3;
+                link.style.transform = `translate(${x}px, ${y}px)`;
+            });
+            link.addEventListener('mouseleave', () => {
+                link.style.transform = 'translate(0px, 0px)';
+            });
+        });
     }
 };
 
@@ -96,7 +130,10 @@ window.toolsRegistry = [
     { id: 'code-vault', name: 'Code Snippet Vault', category: '#utilities', keywords: 'utility code snippet save store', icon: 'fa-box-archive', color: 'var(--accent-utils)', desc: 'Securely save and organize your reusable code snippets.' },
     { id: 'res-builder', name: 'Resume Builder', category: '#resume-tools', keywords: 'resume cv job builder', icon: 'fa-pencil', color: 'var(--accent-resume)', desc: 'Build a professional resume with ease.' },
     { id: 'ats-chk', name: 'ATS Analyzer', category: '#resume-tools', keywords: 'resume cv job score', icon: 'fa-magnifying-glass-chart', color: 'var(--accent-resume)', desc: 'Analyze your resume for ATS compatibility.' },
-    { id: 'game-snake', name: 'Snake Game', category: '#games', keywords: 'game fun snake', icon: 'fa-staff-snake', color: 'var(--accent-games)', desc: 'The classic snake game. Eat food, grow longer!' }
+    { id: 'game-snake', name: 'Snake Game', category: '#games', keywords: 'game fun snake', icon: 'fa-staff-snake', color: 'var(--accent-games)', desc: 'The classic snake game. Eat food, grow longer!' },
+    { id: 'img-ocr', name: 'Extract Text (OCR)', category: '#image-tools', keywords: 'image text ocr extract read', icon: 'fa-file-lines', color: 'var(--accent-img)', desc: 'Extract editable text from any image using AI.' },
+    { id: 'img-bg-rm', name: 'Remove Background', category: '#image-tools', keywords: 'image ai remove background cutout transparent', icon: 'fa-user-slash', color: 'var(--accent-img)', desc: 'Remove backgrounds from images instantly with AI.' },
+    { id: 'dev-sandbox', name: 'Code Sandbox', category: '#utilities', keywords: 'utility code sandbox editor html css js', icon: 'fa-code', color: 'var(--accent-utils)', desc: 'Write and preview HTML, CSS, and JS in a live environment.' },
 ];
 
 function createDocInterface(title, desc) {
@@ -351,9 +388,15 @@ const HomeView = {
             </section>
 
             <div class="container">
-                <div id="pinned-section" style="display: none; margin-bottom: 4rem;">
-                    <h2 class="section-title">Your Dashboard</h2>
-                    <div class="grid grid-3" id="pinned-grid"></div>
+                <div id="dashboard-section" style="margin-bottom: 4rem;">
+                    <div id="pinned-section" style="display: none; margin-bottom: 2rem;">
+                        <h2 class="section-title">Your Dashboard</h2>
+                        <div class="grid grid-3" id="pinned-grid"></div>
+                    </div>
+                    <div id="recent-section" style="display: none;">
+                        <h2 class="section-title">Recently Used Tools</h2>
+                        <div class="grid grid-3" id="recent-grid"></div>
+                    </div>
                 </div>
 
                 <div class="search-container">
@@ -404,16 +447,16 @@ const HomeView = {
 
                 <div class="stats-section">
                     <div class="stat-item">
+                        <h4 id="impact-count">${window.utils.getImpact()}</h4>
+                        <p>Tools Executed</p>
+                    </div>
+                    <div class="stat-item">
                         <h4>20+</h4>
                         <p>Tools Available</p>
                     </div>
                     <div class="stat-item">
                         <h4>100%</h4>
                         <p>Free to Use</p>
-                    </div>
-                    <div class="stat-item">
-                        <h4>Secure</h4>
-                        <p>Client-side Processing</p>
                     </div>
                 </div>
             </div>
@@ -465,18 +508,21 @@ const HomeView = {
             if (pinnedIds.length > 0) {
                 pinnedContainer.style.display = 'block';
                 const pinnedTools = window.toolsRegistry.filter(t => pinnedIds.includes(t.id));
-                pinnedGrid.innerHTML = pinnedTools.map(t => `
-                    <div class="card card-featured" style="--accent-color: ${t.color}; cursor: pointer;" onclick="window.location.hash='${t.category}'">
-                        <div class="card-pin-btn active" onclick="event.stopPropagation(); window.togglePin('${t.id}')">
-                            <i class="fa-solid fa-thumbtack"></i>
-                        </div>
-                        <i class="fa-solid ${t.icon} card-icon"></i>
-                        <h3 class="card-title">${t.name}</h3>
-                        <p class="card-desc">${t.desc}</p>
-                    </div>
-                `).join('');
+                pinnedGrid.innerHTML = pinnedTools.map(t => window.utils.renderToolCard(t)).join('');
             } else {
                 pinnedContainer.style.display = 'none';
+            }
+
+            const recentIds = window.utils.getRecentTools();
+            const recentContainer = document.getElementById('recent-section');
+            const recentGrid = document.getElementById('recent-grid');
+
+            if (recentIds.length > 0) {
+                recentContainer.style.display = 'block';
+                const recentTools = recentIds.map(id => window.toolsRegistry.find(t => t.id === id)).filter(Boolean);
+                recentGrid.innerHTML = recentTools.map(t => window.utils.renderToolCard(t)).join('');
+            } else {
+                recentContainer.style.display = 'none';
             }
         };
 
@@ -550,6 +596,10 @@ const DocToolsView = {
             document.getElementById('list-view').style.display = 'none';
             const toolView = document.getElementById('tool-view');
             toolView.style.display = 'block';
+            
+            const toolObj = window.toolsRegistry.find(t => t.name === title);
+            if(toolObj) window.utils.trackToolUse(toolObj.id);
+
             
             if (title === 'Bulk PDF to Image') {
                 toolView.innerHTML = createBulkPDFImageInterface(title, desc);
@@ -741,6 +791,19 @@ function initImageToolLogic(title, desc) {
             let quality = 0.92;
             let outputExt = currentFile.name.split('.').pop();
             
+            if (title === 'Remove Background') {
+                try {
+                    const blob = await imglyRemoveBackground(currentImageURL);
+                    const newUrl = URL.createObjectURL(blob);
+                    downloadLink.href = newUrl;
+                    downloadLink.download = `techboy_bg_removed.png`;
+                    previewImg.src = newUrl;
+                    resultArea.style.display = 'block';
+                    processBtn.disabled = true;
+                } catch(e) { alert("AI Background Removal Failed: " + e.message); }
+                return;
+            }
+
             if(title === 'Resize Image') {
                 const targetWidth = prompt("Enter target width (px):", width) || width;
                 const ratio = targetWidth / width;
@@ -782,6 +845,76 @@ function initImageToolLogic(title, desc) {
     });
 }
 
+function createOCRInterface(title, desc) {
+    return `
+        <div class="tool-section">
+            <button class="btn btn-accent" style="margin-bottom: 2rem;" onclick="document.getElementById('tool-view').style.display='none'; document.getElementById('list-view').style.display='block';"><i class="fa-solid fa-arrow-left"></i> Back</button>
+            <div class="tool-header">
+                <h2>${title}</h2>
+                <p>${desc}</p>
+            </div>
+            
+            <div class="file-drop-area" id="ocr-drop-area" onclick="document.getElementById('ocr-upload').click()">
+                <i class="fa-solid fa-cloud-arrow-up file-drop-icon"></i>
+                <div class="file-drop-text" id="ocr-drop-text">Choose image or drag & drop it here</div>
+                <input type="file" id="ocr-upload" hidden accept="image/*">
+            </div>
+
+            <div style="text-align: center; display: none;" id="ocr-preview-container">
+                <img id="ocr-preview" style="max-width: 100%; max-height: 200px; border-radius: 8px; margin-bottom: 1rem; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);" />
+            </div>
+
+            <div style="text-align: center; margin-bottom: 1rem;">
+                <button class="btn btn-primary" id="ocr-process-btn" disabled>Extract Text</button>
+            </div>
+            
+            <div id="ocr-result-area" style="display: none; text-align: left;">
+                <label class="form-label" style="display: block; margin-bottom: 0.5rem; color: #10B981; font-weight: bold;">Extracted Text:</label>
+                <textarea class="form-control" id="ocr-output" style="height: 200px; margin-bottom: 1rem;"></textarea>
+                <button class="btn btn-accent" onclick="navigator.clipboard.writeText(document.getElementById('ocr-output').value); alert('Copied!')"><i class="fa-solid fa-copy"></i> Copy to Clipboard</button>
+            </div>
+        </div>
+    `;
+}
+
+function initOCRLogic() {
+    const fileInput = document.getElementById('ocr-upload');
+    const dropText = document.getElementById('ocr-drop-text');
+    const previewImg = document.getElementById('ocr-preview');
+    const previewContainer = document.getElementById('ocr-preview-container');
+    const processBtn = document.getElementById('ocr-process-btn');
+    const resultArea = document.getElementById('ocr-result-area');
+    const outputText = document.getElementById('ocr-output');
+    
+    let currentImageURL = null;
+
+    fileInput.onchange = () => {
+        if(fileInput.files.length > 0) {
+            const file = fileInput.files[0];
+            dropText.textContent = file.name;
+            currentImageURL = URL.createObjectURL(file);
+            previewImg.src = currentImageURL;
+            previewContainer.style.display = 'block';
+            processBtn.disabled = false;
+            resultArea.style.display = 'none';
+        }
+    };
+
+    processBtn.onclick = async () => {
+        if(!currentImageURL) return;
+        window.utils.showProcessing('Extracting text (OCR may take a moment)...');
+        try {
+            const result = await Tesseract.recognize(currentImageURL, 'eng');
+            outputText.value = result.data.text;
+            resultArea.style.display = 'block';
+        } catch(err) {
+            alert('Error during OCR: ' + err.message);
+        } finally {
+            window.utils.hideProcessing();
+        }
+    };
+}
+
 const ImageToolsView = {
     render() {
         return `
@@ -808,12 +941,57 @@ const ImageToolsView = {
             if (title === 'Batch Image Processor') {
                 toolView.innerHTML = createBatchImageInterface(title, desc);
                 initBatchImageLogic();
+            } else if (title === 'Extract Text (OCR)') {
+                toolView.innerHTML = createOCRInterface(title, desc);
+                initOCRLogic();
             } else {
                 initImageToolLogic(title, desc);
             }
         };
     }
 };
+
+function createSandboxInterface(title, desc) {
+    return `
+        <div class="tool-section" style="max-width: 100%;">
+            <button class="btn btn-accent" style="margin-bottom: 2rem;" onclick="document.getElementById('sandbox-view').style.display='none'; document.getElementById('list-view').style.display='block';"><i class="fa-solid fa-arrow-left"></i> Back</button>
+            <div class="tool-header">
+                <h2>${title}</h2>
+                <p>${desc}</p>
+            </div>
+            
+            <div class="grid grid-2" style="gap: 1.5rem; height: 500px; align-items: stretch;">
+                <div style="display: flex; flex-direction: column;">
+                    <label class="form-label">Editor (HTML/CSS/JS)</label>
+                    <textarea id="sandbox-editor" class="form-control" style="flex-grow: 1; font-family: monospace; resize: none;"><style>
+  body { font-family: sans-serif; text-align: center; padding-top: 50px; }
+  h1 { color: #3B82F6; }
+</style>
+<h1>Hello TECHBOY!</h1>
+<script>
+  console.log("Sandbox loaded!");
+</script></textarea>
+                </div>
+                <div style="display: flex; flex-direction: column;">
+                    <label class="form-label">Live Preview</label>
+                    <iframe id="sandbox-preview" style="flex-grow: 1; width: 100%; border: 1px solid var(--glass-border); border-radius: 12px; background: white;"></iframe>
+                </div>
+            </div>
+        </div>
+    `;
+}
+
+function initSandboxLogic() {
+    const editor = document.getElementById('sandbox-editor');
+    const preview = document.getElementById('sandbox-preview');
+    
+    const updatePreview = () => {
+        preview.srcdoc = editor.value;
+    };
+    
+    editor.addEventListener('input', updatePreview);
+    updatePreview();
+}
 
 const UtilitiesView = {
     render() {
@@ -852,13 +1030,24 @@ const UtilitiesView = {
                         </div>
                     </div>
                 </div>
+
+                <div id="sandbox-view" style="display: none;"></div>
             </div>
         `;
     },
     postRender() {
         window.activeTool = (name, desc) => {
             document.getElementById('list-view').style.display = 'none';
-            if (name === 'AI Technical Writer' || name === 'Code Snippet Vault') {
+            
+            const toolObj = window.toolsRegistry.find(t => t.name === name);
+            if(toolObj) window.utils.trackToolUse(toolObj.id);
+
+            if (name === 'Code Sandbox') {
+                const sandboxView = document.getElementById('sandbox-view');
+                sandboxView.style.display = 'block';
+                sandboxView.innerHTML = createSandboxInterface(name, desc);
+                initSandboxLogic();
+            } else if (name === 'AI Technical Writer' || name === 'Code Snippet Vault') {
                 initPowerUtilityLogic(name);
             } else {
                 window.utils.showProcessing(`Opening ${name}...`);
