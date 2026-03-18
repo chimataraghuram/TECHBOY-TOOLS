@@ -213,6 +213,7 @@ body::after {
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 28px;
+  gap: 1.5rem;
 }
 
 /* Logo pill */
@@ -229,6 +230,7 @@ body::after {
   box-shadow: var(--shadow-md), inset 0 1px 0 rgba(255,255,255,0.08);
   transition: var(--jelly-transition);
   flex-shrink: 0;
+  /* Anchored to the left; nav-links center themselves via flex */
 }
 
 .logo:hover {
@@ -252,7 +254,8 @@ body::after {
   color: var(--text-primary);
 }
 
-/* Nav links pill */
+/* Nav links pill — centered naturally because the container is space-between
+   and the right side is occupied by the mobile-btn placeholder */
 .nav-links {
   display: flex;
   align-items: center;
@@ -264,6 +267,10 @@ body::after {
   border-radius: var(--radius-full);
   border: 1px solid var(--glass-border);
   box-shadow: var(--shadow-md);
+  /* Center trick: push to center ignoring logo width */
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
 }
 
 .nav-link {
