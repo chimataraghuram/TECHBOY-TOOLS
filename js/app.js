@@ -40,6 +40,48 @@ window.utils = {
     },
     // Theme Engine
     setTheme(theme) {
+// app.js - Main Application Logic and Routing (Bundled)
+
+// Global Processing Helpers
+window.utils = {
+    showProcessing(message = 'Processing...') {
+        const overlay = document.getElementById('processing-overlay');
+        const status = document.getElementById('processing-status');
+        if (overlay && status) {
+            status.innerText = message;
+            overlay.classList.add('active');
+        }
+    },
+    hideProcessing() {
+        const overlay = document.getElementById('processing-overlay');
+        if (overlay) overlay.classList.remove('active');
+    },
+    async downloadBlob(blob, filename) {
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = filename;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+    },
+    // Pinning Logic
+    getPinnedTools() {
+        return JSON.parse(localStorage.getItem('pinned_tools') || '[]');
+    },
+    togglePin(toolId) {
+        let pinned = this.getPinnedTools();
+        if (pinned.includes(toolId)) {
+            pinned = pinned.filter(id => id !== toolId);
+        } else {
+            pinned.push(toolId);
+        }
+        localStorage.setItem('pinned_tools', JSON.stringify(pinned));
+        return pinned.includes(toolId);
+    },
+    // Theme Engine
+    setTheme(theme) {
         document.body.setAttribute('data-theme', theme);
         localStorage.setItem('techboy_theme', theme);
         const icon = theme === 'glass' ? 'fa-circle-half-stroke' : (theme === 'space' ? 'fa-moon' : 'fa-bolt');
@@ -47,13 +89,7 @@ window.utils = {
         if (btn) btn.innerHTML = `<i class="fa-solid ${icon}"></i>`;
         
         // Update Particles color based on theme
-        if (window.pJSDom && window.pJSDom[0]) {
-            let color = '#3b82f6';
-            if (theme === 'space') color = '#a855f7';
-            if (theme === 'cyber') color = '#f472b6';
-            window.pJSDom[0].pJS.particles.color.value = color;
-            window.pJSDom[0].pJS.fn.particlesRefresh();
-        }
+        // (Handled automatically by CSS variables now)
     },
     initTheme() {
         const saved = localStorage.getItem('techboy_theme') || 'glass';
@@ -1614,7 +1650,7 @@ function initParticles() {
     // Clear existing
     container.innerHTML = '';
     
-    const particleCount = 20;
+    const particleCount = 15; // Controlled count for performance
     for (let i = 0; i < particleCount; i++) {
         createParticle(container);
     }
@@ -1625,9 +1661,11 @@ function createParticle(container) {
     particle.className = 'particle';
     
     // Larger sizes for liquid glass effect
-    const size = Math.random() * 300 + 150;
+    const size = Math.random() * 400 + 200;
     particle.style.width = `${size}px`;
     particle.style.height = `${size}px`;
+    particle.style.opacity = Math.random() * 0.5 + 0.3;
+
     
     // Random initial position
     particle.style.left = `${Math.random() * 100}%`;
@@ -1638,16 +1676,15 @@ function createParticle(container) {
     // Animate
     animateParticle(particle);
 }
-
 function animateParticle(particle) {
-    const duration = Math.random() * 30000 + 20000; // Slower, 20-50s
-    const targetX = (Math.random() - 0.5) * 60; // wider move
-    const targetY = (Math.random() - 0.5) * 60;
+    const duration = Math.random() * 40000 + 20000; // Slower, 20-60s
+    const targetX = (Math.random() - 0.5) * 100; // Full width move
+    const targetY = (Math.random() - 0.5) * 100;
     
     particle.animate([
-        { transform: 'translate(0, 0)' },
-        { transform: `translate(${targetX}vw, ${targetY}vh)` },
-        { transform: 'translate(0, 0)' }
+        { transform: 'translate(0, 0) scale(1)', opacity: particle.style.opacity },
+        { transform: `translate(${targetX}vw, ${targetY}vh) scale(1.2)`, opacity: particle.style.opacity * 0.5 },
+        { transform: 'translate(0, 0) scale(1)', opacity: particle.style.opacity }
     ], {
         duration: duration,
         iterations: Infinity,
