@@ -40,48 +40,6 @@ window.utils = {
     },
     // Theme Engine
     setTheme(theme) {
-// app.js - Main Application Logic and Routing (Bundled)
-
-// Global Processing Helpers
-window.utils = {
-    showProcessing(message = 'Processing...') {
-        const overlay = document.getElementById('processing-overlay');
-        const status = document.getElementById('processing-status');
-        if (overlay && status) {
-            status.innerText = message;
-            overlay.classList.add('active');
-        }
-    },
-    hideProcessing() {
-        const overlay = document.getElementById('processing-overlay');
-        if (overlay) overlay.classList.remove('active');
-    },
-    async downloadBlob(blob, filename) {
-        const url = URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = filename;
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
-        URL.revokeObjectURL(url);
-    },
-    // Pinning Logic
-    getPinnedTools() {
-        return JSON.parse(localStorage.getItem('pinned_tools') || '[]');
-    },
-    togglePin(toolId) {
-        let pinned = this.getPinnedTools();
-        if (pinned.includes(toolId)) {
-            pinned = pinned.filter(id => id !== toolId);
-        } else {
-            pinned.push(toolId);
-        }
-        localStorage.setItem('pinned_tools', JSON.stringify(pinned));
-        return pinned.includes(toolId);
-    },
-    // Theme Engine
-    setTheme(theme) {
         document.body.setAttribute('data-theme', theme);
         localStorage.setItem('techboy_theme', theme);
         const icon = theme === 'glass' ? 'fa-circle-half-stroke' : (theme === 'space' ? 'fa-moon' : 'fa-bolt');
@@ -1595,13 +1553,13 @@ const routes = {
     '#games': GamesView
 };
 
-window.addEventListener('load', () => {
-    const appContent = document.getElementById('app-content');
-    const navLinks = document.querySelectorAll('.nav-link');
-    const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
-    const navLinksContainer = document.querySelector('.nav-links');
+// Initialize App Logic
+const appContent = document.getElementById('app-content');
+const navLinks = document.querySelectorAll('.nav-link');
+const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+const navLinksContainer = document.querySelector('.nav-links');
 
-    function router() {
+function router() {
         let hash = window.location.hash;
         
         if (!routes[hash] && hash !== '') {
@@ -1632,16 +1590,21 @@ window.addEventListener('load', () => {
         });
     }
 
-    window.addEventListener('hashchange', router);
-    router();
+// Start
+window.addEventListener('hashchange', router);
+router();
 
+if (mobileMenuBtn) {
     mobileMenuBtn.addEventListener('click', () => {
         navLinksContainer.classList.toggle('active');
     });
+}
 
-    // Restore Particle Background System
-    initParticles();
-});
+initParticles();
+
+// Theme and Magnetic Cards
+window.utils.initTheme();
+window.utils.initMagneticCards();
 
 function initParticles() {
     const container = document.getElementById('bg-particles');
@@ -1692,11 +1655,6 @@ function animateParticle(particle) {
     });
 }
 
-// Initialize App
-window.addEventListener('DOMContentLoaded', () => {
-    window.utils.initTheme();
-    window.utils.initMagneticCards();
-});
 
 
 function createBulkPDFImageInterface(title, desc) {
