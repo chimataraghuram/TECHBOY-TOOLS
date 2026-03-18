@@ -1,161 +1,191 @@
 <div align="center">
 
-<img src="assets/logo_main.jpg" alt="TECHBOY Tools Logo" width="100" style="border-radius: 16px;" />
+<br>
 
-# ⚡ TECHBOY Tools
+<img src="assets/logo_main.jpg" alt="TECHBOY Tools" width="90" style="border-radius: 20px;">
 
-**The Ultimate Free Online Maker Dashboard**
+<br><br>
 
-A premium, all-in-one web toolkit built for students, designers, and developers — with **no sign-up required** and **everything runs in your browser**.
+# TECHBOY Tools
 
-[![Live Site](https://img.shields.io/badge/🌐%20Live%20Site-Visit-4F46E5?style=for-the-badge)](https://chimataraghuram.github.io/TECHBOY-TOOLS/)
-[![GitHub Stars](https://img.shields.io/github/stars/chimataraghuram/TECHBOY-TOOLS?style=for-the-badge&color=F59E0B)](https://github.com/chimataraghuram/TECHBOY-TOOLS/stargazers)
-[![License](https://img.shields.io/badge/License-MIT-10B981?style=for-the-badge)](LICENSE)
-[![PWA](https://img.shields.io/badge/PWA-Ready-6366F1?style=for-the-badge&logo=pwa)](https://chimataraghuram.github.io/TECHBOY-TOOLS/)
+**The Ultimate Free Maker Dashboard — Built for Creators, Developers & Students**
+
+<br>
+
+[![Live Site](https://img.shields.io/badge/🌐%20Live%20Demo-Visit%20Site-6366f1?style=for-the-badge&logoColor=white)](https://chimataraghuram.github.io/TECHBOY-TOOLS/)
+&nbsp;
+[![GitHub Stars](https://img.shields.io/github/stars/chimataraghuram/TECHBOY-TOOLS?style=for-the-badge&color=f59e0b&label=⭐%20Stars)](https://github.com/chimataraghuram/TECHBOY-TOOLS/stargazers)
+&nbsp;
+[![PWA Ready](https://img.shields.io/badge/PWA-Installable-10b981?style=for-the-badge&logo=pwa)](https://chimataraghuram.github.io/TECHBOY-TOOLS/)
+&nbsp;
+[![License: MIT](https://img.shields.io/badge/License-MIT-a855f7?style=for-the-badge)](LICENSE)
+
+<br>
+
+> **20+ powerful tools.** All 100% free. No sign-up. No uploads. Everything runs in your browser.
+
+<br>
 
 </div>
 
 ---
 
-## 🖼️ Screenshots
+## 🖼️ Preview
 
-### 🏠 Dashboard — Liquid Glass Design
+<div align="center">
+
 ![TECHBOY Tools Homepage](screenshots/homepage.png)
 
-### 🔧 Tools Page
-![Tools Section](screenshots/tools_page.png)
+*The Aurora Dark dashboard — Premium glassmorphism design with live statistics*
 
-### 🎨 Navbar & Branding
-![Navbar](screenshots/navbar.png)
+| Tools Page | Navbar & Branding |
+|:---:|:---:|
+| ![Tools](screenshots/tools_page.png) | ![Navbar](screenshots/navbar.png) |
 
----
-
-## 🚀 Live Site
-
-👉 **[https://chimataraghuram.github.io/TECHBOY-TOOLS/](https://chimataraghuram.github.io/TECHBOY-TOOLS/)**
+</div>
 
 ---
 
-## ✨ Features
+## ✨ What's Inside
+
+<table>
+<tr>
+<td width="50%">
 
 ### 📄 Document Tools
-| Tool | Description |
-|---|---|
-| Merge PDF | Combine multiple PDFs into one |
-| Split PDF | Extract specific pages |
-| Compress PDF | Reduce file size |
-| Word ↔ PDF | Convert between formats |
-| Bulk PDF to Image | Extract all pages as images |
+- 📦 Merge PDF — combine multiple files
+- ✂️ Split PDF — extract specific pages
+- 🗜️ Compress PDF — reduce file size
+- 🔄 Word ↔ PDF — convert both ways
+- 🖼️ Bulk PDF to Image — extract all pages
+
+</td>
+<td width="50%">
 
 ### 🖼️ Image Tools
-| Tool | Description |
-|---|---|
-| Image Compressor | Compress images without quality loss |
-| Resize Image | Change dimensions to custom size |
-| JPG ↔ PNG | Convert between formats |
-| Batch Image Processor | Process multiple images at once |
-| Extract Text (OCR) | Extract text from images using AI |
-| Remove Background | AI-powered background removal |
+- 🗜️ Image Compressor
+- 📐 Resize Image (custom px)
+- 🔄 JPG ↔ PNG Converter
+- ⚡ Batch Image Processor
+- 🔍 **Extract Text (OCR)** — AI-powered
+- 🪄 **Remove Background** — AI on-device
+
+</td>
+</tr>
+<tr>
+<td>
 
 ### 🛠️ Utilities
-| Tool | Description |
-|---|---|
-| QR Code Generator | Generate QR codes instantly |
-| Password Generator | Create strong, secure passwords |
-| Password Strength Checker | Test password security |
-| Word Counter | Count words, characters, reading time |
-| JSON Formatter | Prettify and validate JSON |
-| Unit Converter | Convert PX, REM, and more |
-| Color Palette Generator | Generate beautiful color palettes |
-| Markdown Editor | Live markdown preview editor |
-| Code Sandbox | Live HTML/CSS/JS playground |
-| AI Technical Writer | Convert notes to documentation |
-| Code Snippet Vault | Save and organize code snippets |
+- 🔐 Password Generator & Strength Checker
+- 📊 QR Code Generator
+- 🎨 Color Palette Generator
+- 📝 Markdown Editor (live preview)
+- 🔢 Word Counter
+- 📐 Unit Converter (PX, REM...)
+- 💻 **Code Sandbox** — Live HTML/CSS/JS
+- 🤖 AI Technical Writer
+- 📦 Code Snippet Vault
 
-### 📝 Resume Tools
-| Tool | Description |
-|---|---|
-| Resume Builder | Build a professional resume |
-| ATS Analyzer | Score resume for ATS compatibility |
-| Resume Enhancer | Upgrade language for impact |
+</td>
+<td>
 
-### 🎮 Mini Games
-| Game | Description |
+### 📝 Resume Tools + 🎮 Games
+- 📋 Resume Builder (PDF export)
+- 🔍 ATS Analyzer (score + feedback)
+- ✨ AI Resume Improver
+- 🐍 Snake Game
+- 🟦 Same Game (click groups)
+
+</td>
+</tr>
+</table>
+
+---
+
+## 🚀 Highlights
+
+| Feature | Detail |
 |---|---|
-| Snake Game | Classic snake with arrow keys |
-| Same Game | Pop groups of colored blocks |
+| 🔒 **100% Private** | No files ever leave your device. All processing is client-side JavaScript |
+| ⚡ **Instant Load** | No backend, no server. Opens in seconds from any browser |
+| 📱 **Installable PWA** | Add to home screen on Android/iOS/Desktop for an app-like experience |
+| 🧠 **AI-Powered** | OCR via Tesseract.js, Background removal via `@imgly/background-removal` |
+| 🎨 **Aurora Dark UI** | Premium glassmorphism design with Space Grotesk typography |
+| 📌 **Personalized Dashboard** | Pin your favourite tools, track recently used, see your impact counter |
+| 🔍 **Smart Search** | Instantly find any tool by name or keyword |
+| ♿ **Accessible** | Keyboard-navigable with semantic HTML |
 
 ---
 
 ## 🧰 Tech Stack
 
-| Category | Technology |
+| Layer | Technologies |
 |---|---|
-| **Core** | HTML5, CSS3, Vanilla JavaScript |
-| **Fonts** | Google Fonts — Inter |
+| **Core** | HTML5, CSS3 (Custom Properties), Vanilla JS (ES2022) |
+| **Fonts** | [Inter](https://fonts.google.com/specimen/Inter) + [Space Grotesk](https://fonts.google.com/specimen/Space+Grotesk) |
 | **Icons** | Font Awesome 6 |
-| **PDF Processing** | [pdf-lib](https://pdf-lib.js.org/), [pdfjs](https://mozilla.github.io/pdf.js/), [jsPDF](https://parall.ax/products/jspdf) |
-| **Image Processing** | HTML5 Canvas API |
-| **OCR** | [Tesseract.js](https://tesseract.projectnaptha.com/) |
-| **AI Background Removal** | [@imgly/background-removal](https://github.com/imgly/background-removal-js) |
-| **DOCX Support** | [mammoth.js](https://github.com/mwilliamson/mammoth.js), [docx.js](https://docx.js.org/) |
-| **QR Code** | [QRCodeJS](https://github.com/davidshimjs/qrcodejs) |
-| **Canvas Export** | [html2canvas](https://html2canvas.hertzen.com/) |
-| **ZIP** | [JSZip](https://stuk.github.io/jszip/) |
+| **PDF** | [pdf-lib](https://pdf-lib.js.org/), [PDF.js](https://mozilla.github.io/pdf.js/), [jsPDF](https://parall.ax/products/jspdf) |
+| **Documents** | [mammoth.js](https://github.com/mwilliamson/mammoth.js), [docx.js](https://docx.js.org/) |
+| **Images** | HTML5 Canvas API, [html2canvas](https://html2canvas.hertzen.com/) |
+| **OCR** | [Tesseract.js v5](https://tesseract.projectnaptha.com/) |
+| **AI Bg Remove** | [@imgly/background-removal](https://github.com/imgly/background-removal-js) |
+| **Utilities** | [QRCodeJS](https://github.com/davidshimjs/qrcodejs), [JSZip](https://stuk.github.io/jszip/) |
 | **PWA** | Service Worker + Web App Manifest |
+| **Storage** | `localStorage` — no accounts needed |
 | **Hosting** | GitHub Pages |
-| **Storage** | localStorage (pinned tools, recent tools, snippets, impact count) |
 
 ---
 
-## 🌐 PWA — Install on Your Device
-
-TECHBOY Tools is a **Progressive Web App (PWA)**! You can install it directly from the browser:
-
-- **Chrome/Android:** Open the site → tap the menu → "Add to Home Screen"
-- **Chrome Desktop:** Click the install icon in the address bar
-
----
-
-## 🔒 Privacy First
-
-> **100% client-side** — No files are ever uploaded to any server. All processing happens locally in your browser using JavaScript. Your data stays on your device.
-
----
-
-## 📁 Project Structure
+## 📦 Project Structure
 
 ```
 TECHBOY-TOOLS/
-├── index.html          # Main SPA entry point
+├── index.html          # Single-page app entry
 ├── manifest.json       # PWA manifest
-├── sw.js               # Service Worker
+├── sw.js               # Service worker (offline caching)
+│
 ├── css/
-│   └── styles.css      # All styles (Liquid Glass design system)
+│   └── styles.css      # Aurora Dark design system
+│
 ├── js/
-│   └── app.js          # All app logic, routing, and tool implementations
+│   └── app.js          # All routing, views & tool logic (~2000 lines)
+│
 ├── assets/
-│   └── logo_main.jpg   # App logo
-└── screenshots/        # Site screenshots
+│   └── logo_main.jpg
+│
+└── screenshots/        # Site preview images
 ```
+
+---
+
+## 📲 Install as App (PWA)
+
+TECHBOY Tools is a **Progressive Web App** — install it for a native app experience:
+
+1. Open **[chimataraghuram.github.io/TECHBOY-TOOLS](https://chimataraghuram.github.io/TECHBOY-TOOLS/)** in Chrome
+2. Click the **install icon** in the address bar (desktop) or **"Add to Home Screen"** (mobile)
+3. Done — it works offline too! ✅
 
 ---
 
 ## 🤝 Contributing
 
-Contributions are welcome! Feel free to:
-- ⭐ Star the repository
-- 🐛 Open an issue for bugs
-- 🚀 Submit a pull request for new tools
+Contributions, issues, and feature requests are welcome!
 
----
-
-## 📄 License
-
-MIT License — feel free to use, modify, and distribute.
+1. Fork the repository
+2. Create your branch: `git checkout -b feature/my-new-tool`
+3. Commit your changes: `git commit -m 'feat: Add my new tool'`
+4. Push: `git push origin feature/my-new-tool`
+5. Open a Pull Request
 
 ---
 
 <div align="center">
-  Built with ❤️ by <strong>TECHBOY</strong> &nbsp;|&nbsp; © 2026
+
+**[⭐ Star this repo](https://github.com/chimataraghuram/TECHBOY-TOOLS) if you find it useful!**
+
+<br>
+
+Made with ❤️ by **TECHBOY** &nbsp;•&nbsp; MIT License &nbsp;•&nbsp; © 2026
+
 </div>
